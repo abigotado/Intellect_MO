@@ -21,8 +21,11 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: SafeArea(
           child: ListView.builder(itemCount: priceListItems.length, itemBuilder: (BuildContext context, int index) {
-            return PriceItem(value: priceListItems[index]);
-          }),
+            return Column(
+              children: [
+                Text(priceListItems[index].name),
+                Text("${priceListItems[index].price}")
+            ],);}),
         ),
         appBar: AppBar(title: Text("Услуги"), backgroundColor: Colors.blue, elevation: 100),
       ),
