@@ -19,17 +19,23 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.cyan[100],
         body: SafeArea(
-          child: ListView.builder(itemCount: priceListItems.length, itemBuilder: (BuildContext context, int index) {
-            return Column(
-              children: [
-                Text(priceListItems[index].name),
-                Text("${priceListItems[index].price}")
-            ],);}),
+          child: ListView.builder(
+              padding: EdgeInsets.all(10),
+              itemCount: priceListItems.length,
+              itemBuilder: (BuildContext context, int index) {
+                return PriceItem(value: priceListItems[index]);
+              }),
         ),
-        appBar: AppBar(title: Text("Услуги"), backgroundColor: Colors.blue, elevation: 100),
-      ),
-    );
+        appBar: AppBar(
+          toolbarHeight: 100,
+            title: Text("Стоимость занятий"),
+            backgroundColor: Colors.deepOrangeAccent,
+            elevation: 100, bottom: PreferredSize(
+            child: Text("Первое занятие бесплатно"), preferredSize: Size(10, 10)),
+        )),
+      );
   }
 }
 

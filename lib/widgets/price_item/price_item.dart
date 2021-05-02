@@ -8,11 +8,30 @@ class PriceItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
-      Text("$value.name"),
-      Text(" - $value.price"),
-      Text(" руб./час"),
-    ],
+    return Container(
+      color: Colors.white,
+      margin: EdgeInsets.all(8),
+      padding: EdgeInsets.all(8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: EdgeInsets.only(bottom: 8),
+            child: Text(value.name,
+                style: TextStyle(
+                    fontSize: 22,
+                    color: Colors.indigo,
+                    fontWeight: FontWeight.bold)),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("${value.price} руб./час",
+                  style: TextStyle(fontSize: 26, color: Colors.indigo)),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
