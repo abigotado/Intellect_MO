@@ -32,45 +32,46 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
           backgroundColor: Color.fromRGBO(248, 250, 255, 1),
           body: SafeArea(
-            child: ListView.builder(
-                padding: EdgeInsets.all(10),
-                itemCount: priceListItems.length + 1,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index == 0) {
-                    return Container(
-                        margin: EdgeInsets.only(top: 15),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Color.fromRGBO(81, 140, 255, 1)),
-                        width: 325,
-                        height: 100,
-                        child: Row(
-                          children: [
-                            Container(
-                                margin: EdgeInsets.only(left: 20, right: 20),
-                                width: 76,
-                                height: 76,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                        width: 4,
-                                        color:
-                                            Color.fromRGBO(248, 250, 255, 1)),
-                                    borderRadius: BorderRadius.circular(38)),
-                                child: Center(child: SvgPicture.asset(watches))),
-                            Text("Первое занятие бесплатно!",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16,
-                                    color: Color.fromRGBO(255, 255, 255, 1))),
-                          ],
-                        ));
-                  }
-                  int numberOfExtraWidget =
-                      1; // here we have 1 ExtraWidget i.e Container.
-                  index = index - numberOfExtraWidget;
-                  return PriceItem(value: priceListItems[index]);
-                }),
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                      padding: EdgeInsets.all(10),
+                      itemCount: priceListItems.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return PriceItem(value: priceListItems[index]);
+                      }),
+                ),
+            Container(
+            margin: EdgeInsets.only(top: 15, bottom: 15),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Color.fromRGBO(81, 140, 255, 1)),
+              width: 325,
+              height: 100,
+              child: Row(
+                children: [
+                  Container(
+                      margin: EdgeInsets.only(left: 15, right: 15),
+                      width: 76,
+                      height: 76,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                              width: 4,
+                              color:
+                              Color.fromRGBO(248, 250, 255, 1)),
+                          borderRadius: BorderRadius.circular(38)),
+                      child: Center(child: SvgPicture.asset(watches))),
+                  Text("Первое занятие бесплатно!",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                          color: Color.fromRGBO(255, 255, 255, 1))),
+                ],
+              )),
+              ],
+            ),
           ),
           appBar: AppBar(
             title: Text("Стоимость занятий"),
