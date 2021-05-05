@@ -9,17 +9,19 @@ void main() {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   final List<PriceItemType> priceListItems = [
-    PriceItemType(name: "Ментальная арифметика", price: 1500),
-    PriceItemType(name: "Скорочтение", price: 1300),
-    PriceItemType(name: "Подготовка к школе", price: 1000),
-    PriceItemType(name: "Помощь с домашними заданиями", price: 1100),
+    PriceItemType(name: "Ментальная арифметика", price: 1450),
+    PriceItemType(name: "Интеллектуальное развитие", price: 1450),
+    PriceItemType(name: "Техника чтения", price: 1450),
+    PriceItemType(name: "Скорочтение", price: 1450),
+    PriceItemType(name: "Подготовка к школе", price: 1450),
+    PriceItemType(name: "Помощь с домашними заданиями", price: 1000),
   ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.cyan[100],
+        backgroundColor: Colors.white,
         body: SafeArea(
           child: ListView.builder(
               padding: EdgeInsets.all(10),
