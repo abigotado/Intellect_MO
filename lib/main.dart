@@ -25,8 +25,17 @@ class MyApp extends StatelessWidget {
         body: SafeArea(
           child: ListView.builder(
               padding: EdgeInsets.all(10),
-              itemCount: priceListItems.length,
+              itemCount: priceListItems.length + 1,
               itemBuilder: (BuildContext context, int index) {
+                if (index == 0) {
+                  return Container(
+                      color: Colors.white.withOpacity(0.95),
+                      width: 400,
+                      height: 400,
+                      child: Text(""));
+                }
+                int numberOfExtraWidget = 1; // here we have 1 ExtraWidget i.e Container.
+                index = index - numberOfExtraWidget;
                 return PriceItem(value: priceListItems[index]);
               }),
         ),
