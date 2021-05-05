@@ -21,32 +21,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.white,
-        body: SafeArea(
-          child: ListView.builder(
-              padding: EdgeInsets.all(10),
-              itemCount: priceListItems.length + 1,
-              itemBuilder: (BuildContext context, int index) {
-                if (index == 0) {
-                  return Container(
-                      color: Colors.white.withOpacity(0.95),
-                      width: 400,
-                      height: 400,
-                      child: Text(""));
-                }
-                int numberOfExtraWidget = 1; // here we have 1 ExtraWidget i.e Container.
-                index = index - numberOfExtraWidget;
-                return PriceItem(value: priceListItems[index]);
-              }),
-        ),
-        appBar: AppBar(
-          toolbarHeight: 100,
+          backgroundColor: Color.fromRGBO(248, 250, 255, 1),
+          body: SafeArea(
+            child: ListView.builder(
+                padding: EdgeInsets.all(10),
+                itemCount: priceListItems.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return PriceItem(value: priceListItems[index]);
+                }),
+          ),
+          appBar: AppBar(
             title: Text("Стоимость занятий"),
-            backgroundColor: Colors.deepOrangeAccent,
-            elevation: 100, bottom: PreferredSize(
-            child: Text("Первое занятие бесплатно"), preferredSize: Size(10, 10)),
-        )),
-      );
+            backgroundColor: Color.fromRGBO(81, 140, 255, 1),
+          )),
+    );
   }
 }
 

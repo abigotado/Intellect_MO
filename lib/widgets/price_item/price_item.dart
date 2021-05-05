@@ -13,9 +13,9 @@ class PriceItem extends StatelessWidget {
       margin: EdgeInsets.only(left: 25, top: 15, right: 25, bottom: 15),
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
-        border: Border.all(width: 1, color: Color.fromRGBO(0, 17, 51, 0.03))
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.white,
+          border: Border.all(width: 1, color: Color.fromRGBO(0, 17, 51, 0.03))
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
