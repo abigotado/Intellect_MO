@@ -9,42 +9,42 @@ void main() {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   final List<PriceItemType> priceListItems = [
-    PriceItemType(name: "Ментальная арифметика", price: 1500),
-    PriceItemType(name: "Скорочтение", price: 1300),
-    PriceItemType(name: "Подготовка к школе", price: 1000),
-    PriceItemType(name: "Помощь с домашними заданиями", price: 1100),
+    PriceItemType(name: "Ментальная арифметика", price: 1450),
+    PriceItemType(name: "Интеллектуальное развитие", price: 1450),
+    PriceItemType(name: "Техника чтения", price: 1450),
+    PriceItemType(name: "Скорочтение", price: 1450),
+    PriceItemType(name: "Подготовка к школе", price: 1450),
+    PriceItemType(name: "Помощь с домашними заданиями", price: 1000),
   ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.cyan[100],
-        body: SafeArea(
-          child: ListView.builder(
-              padding: EdgeInsets.all(10),
-              itemCount: priceListItems.length + 1,
-              itemBuilder: (BuildContext context, int index) {
-                if (index == 0) {
-                  return Container(
-                      color: Colors.white.withOpacity(0.95),
-                      width: 400,
-                      height: 400,
-                      child: Text(""));
-                }
-                int numberOfExtraWidget = 1; // here we have 1 ExtraWidget i.e Container.
-                index = index - numberOfExtraWidget;
-                return PriceItem(value: priceListItems[index]);
-              }),
-        ),
-        appBar: AppBar(
-          toolbarHeight: 100,
+          backgroundColor: Color.fromRGBO(248, 250, 255, 1),
+          body: SafeArea(
+            child: ListView.builder(
+                padding: EdgeInsets.all(10),
+                itemCount: priceListItems.length + 1,
+                itemBuilder: (BuildContext context, int index) {
+                  if (index == 0) {
+                    return Container(
+                        color: Colors.white.withOpacity(0.95),
+                        width: 400,
+                        height: 400,
+                        child: Text("Первое занятие бесплатно"));
+                  }
+                  int numberOfExtraWidget =
+                      1; // here we have 1 ExtraWidget i.e Container.
+                  index = index - numberOfExtraWidget;
+                  return PriceItem(value: priceListItems[index]);
+                }),
+          ),
+          appBar: AppBar(
             title: Text("Стоимость занятий"),
-            backgroundColor: Colors.deepOrangeAccent,
-            elevation: 100, bottom: PreferredSize(
-            child: Text("Первое занятие бесплатно"), preferredSize: Size(10, 10)),
-        )),
-      );
+            backgroundColor: Color.fromRGBO(81, 140, 255, 1),
+          )),
+    );
   }
 }
 
