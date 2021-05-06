@@ -1,6 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intellect_mo/widgets/banner/banner.dart';
 import 'package:intellect_mo/widgets/price_item/price_item.dart';
 import 'package:intellect_mo/widgets/price_item/type.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+final String watches = 'assets/icons/timeicon.svg';
+final Widget svg = SvgPicture.asset(
+  watches,
+  width: 26,
+  height: 26,
+);
 
 void main() {
   runApp(MyApp());
@@ -23,12 +33,23 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
           backgroundColor: Color.fromRGBO(248, 250, 255, 1),
           body: SafeArea(
-            child: ListView.builder(
-                padding: EdgeInsets.all(10),
-                itemCount: priceListItems.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return PriceItem(value: priceListItems[index]);
-                }),
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount: priceListItems.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return PriceItem(value: priceListItems[index]);
+                        }),
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(top: 15),
+                      child: FirstLessonInfo(icon: SvgPicture.asset(watches), text: "Первое занятие бесплатно!")),
+                ],
+              ),
+            ),
           ),
           appBar: AppBar(
             title: Text("Стоимость занятий"),
