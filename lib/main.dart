@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intellect_mo/widgets/banner/banner.dart';
 import 'package:intellect_mo/widgets/price_item/price_item.dart';
 import 'package:intellect_mo/widgets/price_item/type.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -32,45 +33,22 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
           backgroundColor: Color.fromRGBO(248, 250, 255, 1),
           body: SafeArea(
-            child: Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                      padding: EdgeInsets.all(10),
-                      itemCount: priceListItems.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return PriceItem(value: priceListItems[index]);
-                      }),
-                ),
-            Container(
-            margin: EdgeInsets.only(top: 15, bottom: 15),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Color.fromRGBO(81, 140, 255, 1)),
-              width: 325,
-              height: 100,
-              child: Row(
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
                 children: [
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount: priceListItems.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return PriceItem(value: priceListItems[index]);
+                        }),
+                  ),
                   Container(
-                      margin: EdgeInsets.only(left: 15, right: 15),
-                      width: 76,
-                      height: 76,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(
-                              width: 4,
-                              color:
-                              Color.fromRGBO(248, 250, 255, 1)),
-                          borderRadius: BorderRadius.circular(38)),
-                      child: Center(child: SvgPicture.asset(watches))),
-                  Text("Первое занятие бесплатно!",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                          color: Color.fromRGBO(255, 255, 255, 1))),
+                      margin: EdgeInsets.only(top: 15),
+                      child: FirstLessonInfo(icon: SvgPicture.asset(watches), text: "Первое занятие бесплатно!")),
                 ],
-              )),
-              ],
+              ),
             ),
           ),
           appBar: AppBar(
