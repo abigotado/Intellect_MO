@@ -19,17 +19,38 @@ void main() {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   final List<PriceItemType> priceListItems = [
-    PriceItemType(name: "Ментальная арифметика", price: 1450),
-    PriceItemType(name: "Интеллектуальное развитие", price: 1450),
-    PriceItemType(name: "Техника чтения", price: 1450),
-    PriceItemType(name: "Скорочтение", price: 1450),
-    PriceItemType(name: "Подготовка к школе", price: 1450),
-    PriceItemType(name: "Помощь с домашними заданиями", price: 1000),
+    PriceItemType(
+        name: "Ментальная арифметика",
+        price: 1450,
+        description:
+            "Ментальная арифметика — это один из методов развития дейтского интеллекта, при котором применяется быстрый счёт в уме. На первом этапе ребёнок считает с помощью специальных счёт - абакуса. При этом также тренируется мелкую моторика рук. Затем он учится считать на так называемых воображаемых счётах — представляет абакус в голове. То есть считает ментально. Это позволяет развить творческое мышление и воображение. Таким образом, ментальная арифметика позволяет развивать различные интеллектуальные способности в комплексе. Кроме того, ребёнок овладевает моментальным устным счётом. В итоге ему становится значитльно проще осуществлять различную творческую и интеллектуальную деятельность. Кроме того, ребёнок учится быстро решать различные задачи, прибегая к нестандартным подходам.",
+        image: 'assets/images/mentari.jpg'),
+    PriceItemType(
+        name: "Развитие мозга, памяти и интеллекта",
+        price: 1450,
+        image: 'assets/images/brainintellect.jpg'),
+    PriceItemType(
+        name: "Обучение чтению",
+        price: 1450,
+        image: 'assets/images/learnreading.jpg'),
+    PriceItemType(
+        name: "Скорочтение и техника чтения",
+        price: 1450,
+        image: 'assets/images/fastreading.jpg'),
+    PriceItemType(
+        name: "Подготовка к школе",
+        price: 1450,
+        image: 'assets/images/schoolprep.jpg'),
+    PriceItemType(
+        name: "Помощь с домашними заданиями",
+        price: 1000,
+        image: 'assets/images/homework.jpg'),
   ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(fontFamily: 'Roboto'),
       home: Scaffold(
           backgroundColor: Color.fromRGBO(248, 250, 255, 1),
           body: SafeArea(
@@ -46,14 +67,19 @@ class MyApp extends StatelessWidget {
                   ),
                   Container(
                       margin: EdgeInsets.only(top: 15),
-                      child: FirstLessonInfo(icon: SvgPicture.asset(watches), text: "Первое занятие бесплатно!")),
+                      child: FirstLessonInfo(
+                          icon: svg, text: "Первое занятие бесплатно!")),
                 ],
               ),
             ),
           ),
           appBar: AppBar(
-            title: Text("Стоимость занятий"),
-            backgroundColor: Color.fromRGBO(81, 140, 255, 1),
+            title: Text(
+              "Стоимость занятий",
+              style: TextStyle(color: Colors.black),
+            ),
+            backgroundColor: Color(0xFFF8FAFF),
+            centerTitle: true,
           )),
     );
   }
