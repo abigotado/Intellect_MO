@@ -51,7 +51,6 @@ class PriceItem extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 14,
                             color: Color(0xFF001133),
-                            fontFamily: 'Roboto',
                             fontWeight: FontWeight.bold)),
                   ),
                   Container(
@@ -59,8 +58,7 @@ class PriceItem extends StatelessWidget {
                     child: Text("${value.price} руб./час",
                         style: TextStyle(
                             fontSize: 12,
-                            color: Color.fromRGBO(0, 17, 51, 0.6),
-                            fontFamily: 'Roboto')),
+                            color: Color.fromRGBO(0, 17, 51, 0.6))),
                   ),
                 ],
               ),

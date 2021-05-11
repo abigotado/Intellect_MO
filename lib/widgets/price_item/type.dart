@@ -4,7 +4,8 @@ class PriceItemType {
   String name;
   int price;
   String image;
-  String description;
+  List<String> description;
+  String descriptionTitle;
   String icon;
 
   PriceItemType({
@@ -12,6 +13,7 @@ class PriceItemType {
     @required this.price,
     this.image,
     this.description,
+    this.descriptionTitle,
     this.icon,
   });
 }

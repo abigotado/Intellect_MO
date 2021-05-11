@@ -27,7 +27,6 @@ class FirstLessonInfo extends StatelessWidget {
                 child: Center(child: icon)),
             Text(text,
                 style: TextStyle(
-                    fontFamily: 'Roboto',
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                     color: Color.fromRGBO(255, 255, 255, 1))),
