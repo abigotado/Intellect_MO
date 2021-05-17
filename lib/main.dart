@@ -1,61 +1,46 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intellect_mo/widgets/banner/banner.dart';
-import 'package:intellect_mo/widgets/price_item/price_item.dart';
-import 'package:intellect_mo/widgets/price_item/type.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-final String watches = 'assets/icons/timeicon.svg';
-final Widget svg = SvgPicture.asset(
-  watches,
-  width: 26,
-  height: 26,
-);
+import 'package:intellect_mo/pages/contacts_page.dart';
+import 'package:intellect_mo/pages/products_page.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
-  final List<PriceItemType> priceListItems = [
-    PriceItemType(name: "Ментальная арифметика", price: 1450),
-    PriceItemType(name: "Интеллектуальное развитие", price: 1450),
-    PriceItemType(name: "Техника чтения", price: 1450),
-    PriceItemType(name: "Скорочтение", price: 1450),
-    PriceItemType(name: "Подготовка к школе", price: 1450),
-    PriceItemType(name: "Помощь с домашними заданиями", price: 1000),
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
+  final List<String> mainMenu = [
+    "Занятия",
+    "Контакты",
   ];
+
+  TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: mainMenu.length, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-          backgroundColor: Color.fromRGBO(248, 250, 255, 1),
-          body: SafeArea(
-            child: Container(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                        itemCount: priceListItems.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return PriceItem(value: priceListItems[index]);
-                        }),
-                  ),
-                  Container(
-                      margin: EdgeInsets.only(top: 15),
-                      child: FirstLessonInfo(icon: SvgPicture.asset(watches), text: "Первое занятие бесплатно!")),
-                ],
-              ),
-            ),
-          ),
-          appBar: AppBar(
-            title: Text("Стоимость занятий"),
-            backgroundColor: Color.fromRGBO(81, 140, 255, 1),
-          )),
-    );
+        theme: ThemeData(fontFamily: 'Roboto'),
+        home: Scaffold(
+            backgroundColor: Color.fromRGBO(248, 250, 255, 1),
+            body: TabBarView(
+              controller: _tabController,
+              children: [
+                ProductsPage(),
+                ContactsPage(),
+              ],
+            )));
   }
 }
 

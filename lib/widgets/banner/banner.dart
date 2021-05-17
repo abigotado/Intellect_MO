@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-class FirstLessonInfo extends StatelessWidget{
+class FirstLessonInfo extends StatelessWidget {
   final String text;
   final Widget icon;
 
   const FirstLessonInfo({Key key, this.text, this.icon}) : super(key: key);
 
-
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
@@ -23,18 +22,15 @@ class FirstLessonInfo extends StatelessWidget{
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
-                        width: 4,
-                        color:
-                        Color.fromRGBO(248, 250, 255, 1)),
+                        width: 4, color: Color.fromRGBO(248, 250, 255, 1)),
                     borderRadius: BorderRadius.circular(24)),
                 child: Center(child: icon)),
             Text(text,
                 style: TextStyle(
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.bold,
                     fontSize: 16,
                     color: Color.fromRGBO(255, 255, 255, 1))),
           ],
         ));
   }
 }
-

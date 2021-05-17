@@ -1,0 +1,14 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="27.2939" y="86.0811" width="6.65999" height="12.4437" rx="3.33" fill="black"/>
+<rect x="93.3682" y="86.0811" width="6.65999" height="12.4437" rx="3.33" fill="black"/>
+<rect x="12.1299" y="28.785" width="103.74" height="65.0947" rx="9" fill="white" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="15.9027" y="32.6023" width="95.9507" height="58.0227" rx="6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="39.3317" cy="66.2402" r="5.95894" fill="white" stroke="black" stroke-width="2"/>
+<path d="M39.3318 60.0183V32.7649" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="52.301" cy="66.2402" r="5.95894" fill="white" stroke="black" stroke-width="2"/>
+<path d="M52.301 60.0183V32.7649" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="65.271" cy="66.2402" r="5.95894" fill="white" stroke="black" stroke-width="2"/>
+<path d="M65.271 60.0183V32.7649" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="94.5194" cy="62.2898" r="6.96161" transform="rotate(-30 94.5194 62.2898)" fill="black"/>
+<path d="M91.823 56.2044L78.1963 32.6022" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
