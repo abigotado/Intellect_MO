@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intellect_mo/widgets/price_item/type.dart';
-import 'package:intellect_mo/widgets/product_description_list.dart';
+import 'package:intellect_mo/widgets/product_description/product_description_list.dart';
 
 final String arrowLeft = 'assets/icons/arrowleft.svg';
 final Widget svg = SvgPicture.asset(
@@ -30,9 +30,11 @@ class ProductPage extends StatelessWidget {
                     Container(
                       margin:
                       EdgeInsets.only(left: 25, top: 25, right: 25, bottom: 20),
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.asset(value.image)),
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: Image.asset(value.image),
                     ),
                   if (value.description != null)
                     Container(

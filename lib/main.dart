@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intellect_mo/pages/contacts_page.dart';
 import 'package:intellect_mo/pages/products_page.dart';
+import 'package:intellect_mo/widgets/main_menu/main_menu.dart';
+import 'package:intellect_mo/widgets/main_menu/types.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,17 +17,38 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
-  final List<String> mainMenu = [
-    "Занятия",
-    "Контакты",
+  final List<TabItem> mainMenu = [
+    TabItem("Занятия", 'assets/icons/lessons.svg'),
+    TabItem("Контакты", 'assets/icons/contacts.svg'),
   ];
 
+  Color primaryColor;
   TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: mainMenu.length, vsync: this);
+    _tabController =
+        TabController(length: mainMenu.length, vsync: this, initialIndex: 0);
+
+    _tabController.addListener(() {
+      _handleTabSelection();
+    });
+  }
+
+  void _handleTabSelection() {
+    _tabController.index = _tabController.index;
+    setState(() {
+      switch (_tabController.index) {
+        case 0:
+          primaryColor = Color(0xFFF8FAFF);
+          break;
+        case 1:
+          primaryColor = Color.fromRGBO(81, 140, 255, 1);
+          break;
+        default:
+      }
+    });
   }
 
   @override
@@ -33,14 +56,30 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     return MaterialApp(
         theme: ThemeData(fontFamily: 'Roboto'),
         home: Scaffold(
-            backgroundColor: Color.fromRGBO(248, 250, 255, 1),
-            body: TabBarView(
-              controller: _tabController,
-              children: [
-                ProductsPage(),
-                ContactsPage(),
-              ],
-            )));
+          backgroundColor: primaryColor,
+          body: TabBarView(
+            controller: _tabController,
+            children: [
+              ProductsPage(),
+              ContactsPage(),
+            ],
+          ),
+          bottomNavigationBar: Container(
+            margin: EdgeInsets.only(left: 25, right: 25, bottom: 15),
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white,
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: MainMenu(
+                tabs: mainMenu,
+                tabController: _tabController,
+              ),
+            ),
+          ),
+        ));
   }
 }
 
