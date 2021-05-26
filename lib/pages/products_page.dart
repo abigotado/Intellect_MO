@@ -108,7 +108,8 @@ class ProductsPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.all(10),
+          color: Color(0xFFF8FAFF),
+          padding: EdgeInsets.only(bottom: 105),
           child: Column(
             children: [
               Expanded(
@@ -118,7 +119,7 @@ class ProductsPage extends StatelessWidget {
                         return PriceItem(value: priceListItems[index]);
                       })),
               Container(
-                  margin: EdgeInsets.only(top: 15),
+                  margin: EdgeInsets.only(left: 50, top: 5, right: 50),
                   child: FirstLessonInfo(
                       icon: svg, text: "Первое занятие бесплатно!")),
             ],

@@ -21,7 +21,7 @@ class _UserDataFieldsState extends State<UserDataFields> {
         children: [
           Center(
               child: Container(
-            margin: EdgeInsets.only(bottom: 15),
+            margin: EdgeInsets.only(bottom: 10),
             child: Text("Введите данные",
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24)),
           )),
@@ -34,6 +34,7 @@ class _UserDataFieldsState extends State<UserDataFields> {
             margin: EdgeInsets.only(bottom: 10),
             child: TextFormField(
               decoration: InputDecoration(
+                isDense: true,
                 contentPadding: EdgeInsets.all(10),
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -41,7 +42,7 @@ class _UserDataFieldsState extends State<UserDataFields> {
                 filled: true,
                 fillColor: Color.fromRGBO(248, 250, 255, 1),
               ),
-              style: TextStyle(fontSize: 12, color: Color.fromRGBO(0, 17, 51, 0.6)),
+              style: TextStyle(fontSize: 14, color: Color.fromRGBO(0, 17, 51, 0.6)),
               onChanged: (value) {
                 setState(() {
                   name = value;
@@ -58,6 +59,7 @@ class _UserDataFieldsState extends State<UserDataFields> {
             margin: EdgeInsets.only(bottom: 10),
             child: TextFormField(
               decoration: InputDecoration(
+                isDense: true,
                 contentPadding: EdgeInsets.all(10),
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -65,7 +67,7 @@ class _UserDataFieldsState extends State<UserDataFields> {
                 filled: true,
                 fillColor: Color.fromRGBO(248, 250, 255, 1),
               ),
-              style: TextStyle(fontSize: 12, color: Color.fromRGBO(0, 17, 51, 0.6)),
+              style: TextStyle(fontSize: 14, color: Color.fromRGBO(0, 17, 51, 0.6)),
               onChanged: (value) {
                 setState(() {
                   surname = value;
@@ -82,6 +84,7 @@ class _UserDataFieldsState extends State<UserDataFields> {
             margin: EdgeInsets.only(bottom: 10),
             child: TextFormField(
               decoration: InputDecoration(
+                isDense: true,
                 contentPadding: EdgeInsets.all(10),
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -89,7 +92,7 @@ class _UserDataFieldsState extends State<UserDataFields> {
                 filled: true,
                 fillColor: Color.fromRGBO(248, 250, 255, 1),
               ),
-              style: TextStyle(fontSize: 12, color: Color.fromRGBO(0, 17, 51, 0.6)),
+              style: TextStyle(fontSize: 14, color: Color.fromRGBO(0, 17, 51, 0.6)),
               onChanged: (value) {
                 setState(() {
                   phone = value;
@@ -103,9 +106,9 @@ class _UserDataFieldsState extends State<UserDataFields> {
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
           ),
           Container(
-            margin: EdgeInsets.only(bottom: 10),
             child: TextFormField(
               decoration: InputDecoration(
+                isDense: true,
                 contentPadding: EdgeInsets.all(10),
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -113,7 +116,7 @@ class _UserDataFieldsState extends State<UserDataFields> {
                 filled: true,
                 fillColor: Color.fromRGBO(248, 250, 255, 1),
               ),
-              style: TextStyle(fontSize: 12, color: Color.fromRGBO(0, 17, 51, 0.6)),
+              style: TextStyle(fontSize: 14, color: Color.fromRGBO(0, 17, 51, 0.6)),
               onChanged: (value) {
                 setState(() {
                   email = value;

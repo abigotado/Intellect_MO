@@ -12,18 +12,18 @@ class FirstLessonInfo extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Color.fromRGBO(81, 140, 255, 1)),
-        height: 80,
+        height: 60,
         child: Row(
           children: [
             Container(
                 margin: EdgeInsets.only(left: 15, right: 15),
-                width: 48,
-                height: 48,
+                width: 40,
+                height: 40,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
-                        width: 4, color: Color.fromRGBO(248, 250, 255, 1)),
-                    borderRadius: BorderRadius.circular(24)),
+                        color: Color.fromRGBO(248, 250, 255, 1)),
+                    borderRadius: BorderRadius.circular(20)),
                 child: Center(child: icon)),
             Text(text,
                 style: TextStyle(

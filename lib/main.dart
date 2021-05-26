@@ -56,29 +56,31 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     return MaterialApp(
         theme: ThemeData(fontFamily: 'Roboto'),
         home: Scaffold(
-          backgroundColor: primaryColor,
-          body: TabBarView(
-            controller: _tabController,
-            children: [
-              ProductsPage(),
-              ContactsPage(),
-            ],
-          ),
-          bottomNavigationBar: Container(
-            margin: EdgeInsets.only(left: 25, right: 25, bottom: 15),
-            padding: EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Colors.white,
+          resizeToAvoidBottomInset: false,
+          body: Stack(alignment: Alignment.bottomCenter, children: [
+            TabBarView(
+              controller: _tabController,
+              children: [
+                ProductsPage(),
+                ContactsPage(),
+              ],
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: MainMenu(
-                tabs: mainMenu,
-                tabController: _tabController,
+            Container(
+              margin: EdgeInsets.only(left: 25, top: 15, right: 25, bottom: 15),
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.white,
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: MainMenu(
+                  tabs: mainMenu,
+                  tabController: _tabController,
+                ),
               ),
             ),
-          ),
+          ]),
         ));
   }
 }

@@ -5,9 +5,8 @@ import 'package:intellect_mo/widgets/main_menu/types.dart';
 class MainMenu extends StatefulWidget {
   final List<TabItem> tabs;
   final TabController tabController;
-  final bool isActiveTab;
 
-  const MainMenu({Key key, this.tabs, this.tabController, this.isActiveTab}) : super(key: key);
+  const MainMenu({Key key, this.tabs, this.tabController}) : super(key: key);
 
   @override
   _MainMenuState createState() => _MainMenuState();
@@ -29,6 +28,7 @@ class _MainMenuState extends State<MainMenu> {
       onTap: (value){setState(() {
         activeTabIndex = value;
       });},
+
     );
   }
 }
