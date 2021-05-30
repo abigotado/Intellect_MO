@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class UserDataFields extends StatefulWidget {
   UserDataFields({Key key}) : super(key: key);
@@ -12,6 +13,12 @@ class _UserDataFieldsState extends State<UserDataFields> {
   var surname = '';
   var phone = '';
   var email = '';
+
+  void sendContactInfo() async {
+    final url = Uri.https('webhook.site', '/2af56105-4a62-4e51-801b-9a274ec2c882', {'firstName': '$name', 'lastName': '$surname'});
+
+    await http.post(url);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,6 +131,9 @@ class _UserDataFieldsState extends State<UserDataFields> {
               },
             ),
           ),
+          TextButton(onPressed: () {
+            sendContactInfo();
+          }, child: Text('Send'))
         ],
       ),
     );
