@@ -13,22 +13,18 @@ class MainMenu extends StatefulWidget {
 }
 
 class _MainMenuState extends State<MainMenu> {
-  int activeTabIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+
     return TabBar(
-      tabs: widget.tabs.map((tab) => Tab(text: tab.title, icon: SvgPicture.asset(tab.icon, color: widget.tabs.indexOf(tab) == activeTabIndex ? Colors.white : Color.fromRGBO(0, 17, 51, 0.6)))).toList(),
+      tabs: widget.tabs.map((tab) => Tab(text: tab.title, icon: SvgPicture.asset(tab.icon, color: widget.tabs.indexOf(tab) == widget.tabController.index ? Colors.white : Color.fromRGBO(0, 17, 51, 0.6)))).toList(),
       controller: widget.tabController,
       labelColor: Colors.white,
       unselectedLabelColor: Color.fromRGBO(0, 17, 51, 0.6),
       indicator: BoxDecoration(
         color: Color(0xFF518CFF),
       ),
-      onTap: (value){setState(() {
-        activeTabIndex = value;
-      });},
-
     );
   }
 }
