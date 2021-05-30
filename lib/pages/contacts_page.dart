@@ -12,11 +12,11 @@ class _ContactsPageState extends State<ContactsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(81, 140, 255, 1),
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.only(bottom: 105),
-          color: Color.fromRGBO(81, 140, 255, 1),
           child: Container(
             margin: EdgeInsets.fromLTRB(25, 30, 25, 170),
             padding: EdgeInsets.only(top: 20),
