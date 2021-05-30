@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
               ],
             ),
             Container(
-              margin: EdgeInsets.only(left: 25, top: 15, right: 25, bottom: 15),
+              margin: EdgeInsets.only(left: 25, top: 15, right: 25, bottom: 25),
               padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
