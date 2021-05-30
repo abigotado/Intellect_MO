@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                 color: Colors.white,
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(11),
                 child: MainMenu(
                   tabs: mainMenu,
                   tabController: _tabController,
