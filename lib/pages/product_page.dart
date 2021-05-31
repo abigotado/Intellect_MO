@@ -1,8 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intellect_mo/widgets/price_item/type.dart';
-import 'package:intellect_mo/widgets/product_description_list.dart';
+import 'package:intellect_mo/widgets/product_description/product_description_list.dart';
 
 final String arrowLeft = 'assets/icons/arrowleft.svg';
 final Widget svg = SvgPicture.asset(
@@ -28,11 +30,12 @@ class ProductPage extends StatelessWidget {
                 children: [
                   if (value.image != null)
                     Container(
-                      margin:
-                      EdgeInsets.only(left: 25, top: 25, right: 25, bottom: 20),
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.asset(value.image)),
+                      margin: EdgeInsets.only(
+                          left: 25, top: 5, right: 25, bottom: 20),
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Image.asset(value.image),
                     ),
                   if (value.description != null)
                     Container(
@@ -42,15 +45,17 @@ class ProductPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             if (value.descriptionTitle != null)
-                              Text(value.descriptionTitle, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                            for (var descriptionItem in value
-                                .description) ProductDescription(
-                                description: descriptionItem),
+                              Text(value.descriptionTitle,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14)),
+                            for (var descriptionItem in value.description)
+                              ProductDescription(description: descriptionItem),
                           ],
                         )),
                   Container(
-                      margin:
-                      EdgeInsets.only(left: 20, top: 25, right: 25, bottom: 25),
+                      margin: EdgeInsets.only(
+                          left: 20, top: 25, right: 25, bottom: 25),
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -58,24 +63,37 @@ class ProductPage extends StatelessWidget {
                         border: Border.all(
                             width: 1, color: Color.fromRGBO(0, 17, 51, 0.03)),
                       ),
-                      child: Center(child: Text(
-                          "Стоимость занятия: ${value.price} руб./час",
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight
-                              .bold)))),
+                      child: Center(
+                          child: Text(
+                              "Стоимость занятия: ${value.price} руб./час",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold)))),
                 ],
               ),
             ),
           ),
         ),
         appBar: AppBar(
-          title: Text(
-            value.name.toUpperCase(),
-            style: TextStyle(color: Colors.black),
+          title: Container(
+            padding: EdgeInsets.only(right: 56),
+            child: Center(
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  text: value.name.toUpperCase(),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500),
+                ),
+                maxLines: 2,
+              ),
+            ),
           ),
           backgroundColor: Color(0xFFF8FAFF),
           centerTitle: true,
           leading: GestureDetector(
-            child: Container(height: 50, width: 50, child: Center(child: svg)),
+            child: Container(child: Center(child: svg)),
             onTap: () {
               Navigator.pop(context);
             },
