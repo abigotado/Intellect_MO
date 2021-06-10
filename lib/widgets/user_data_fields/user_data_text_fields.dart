@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,9 +17,30 @@ class _UserDataFieldsState extends State<UserDataFields> {
   var email = '';
 
   void sendContactInfo() async {
-    final url = Uri.https('webhook.site', '/2af56105-4a62-4e51-801b-9a274ec2c882', {'firstName': '$name', 'lastName': '$surname'});
+    print('click');
+    final url = Uri.https('api.notion.com', '/v1/pages');
 
-    await http.post(url);
+    Map<String, String> headers = {
+      "Authorization": "secret_EvIpZowywyKpoXMuOmWT9vJUpg51M8n1LRkVIyLRunJ",
+      "Content-Type": "application/json",
+      "Notion-Version": "2021-05-13"
+    };
+
+    final body = jsonEncode({
+      "parent": { "type": "database_id", "database_id": "633627dfd3c94a27b3e2a1b4cdee5173" },
+      "properties": {
+        "email": {
+          "type": "email",
+          "email": "pasyuk.com@gmail.com"
+        },
+        "phoneNumber": {
+          "type": "number",
+          "number": 123123
+        },
+      }
+    });
+
+    await http.post(url, headers: headers, body: body);
   }
 
   @override
