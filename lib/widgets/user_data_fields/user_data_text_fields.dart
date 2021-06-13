@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:email_validator/email_validator.dart';
+import 'package:intellect_mo/widgets/validators/phone_validator.dart';
+import 'package:intellect_mo/widgets/validators/name_validator.dart';
 
 class UserDataFields extends StatefulWidget {
   UserDataFields({Key key}) : super(key: key);
@@ -57,8 +59,8 @@ class _UserDataFieldsState extends State<UserDataFields> {
                             children: [
                               Center(
                                   child: Container(
-                                    margin: EdgeInsets.only(bottom: 10),
-                                    child: Text("Введите данные",
+                                margin: EdgeInsets.only(bottom: 10),
+                                child: Text("Введите данные",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 24)),
@@ -73,12 +75,9 @@ class _UserDataFieldsState extends State<UserDataFields> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 10),
                                 child: TextFormField(
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Введите текст';
-                                    }
-                                    return null;
-                                  },
+                                  autovalidateMode: AutovalidateMode.always,
+                                  validator: nameValidator,
+                                  textCapitalization: TextCapitalization.words,
                                   decoration: InputDecoration(
                                     isDense: true,
                                     contentPadding: EdgeInsets.all(10),
@@ -109,12 +108,9 @@ class _UserDataFieldsState extends State<UserDataFields> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 10),
                                 child: TextFormField(
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Введите текст';
-                                    }
-                                    return null;
-                                  },
+                                  autovalidateMode: AutovalidateMode.always,
+                                  validator: nameValidator,
+                                  textCapitalization: TextCapitalization.words,
                                   decoration: InputDecoration(
                                     isDense: true,
                                     contentPadding: EdgeInsets.all(10),
@@ -145,12 +141,9 @@ class _UserDataFieldsState extends State<UserDataFields> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 10),
                                 child: TextFormField(
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Введите текст';
-                                    }
-                                    return null;
-                                  },
+                                  keyboardType: TextInputType.phone,
+                                  autovalidateMode: AutovalidateMode.always,
+                                  validator: phoneValidator,
                                   decoration: InputDecoration(
                                     isDense: true,
                                     contentPadding: EdgeInsets.all(10),
@@ -180,6 +173,7 @@ class _UserDataFieldsState extends State<UserDataFields> {
                               ),
                               Container(
                                 child: TextFormField(
+                                  keyboardType: TextInputType.emailAddress,
                                   autovalidateMode: AutovalidateMode.always,
                                   validator: (value) =>
                                       EmailValidator.validate(value)
