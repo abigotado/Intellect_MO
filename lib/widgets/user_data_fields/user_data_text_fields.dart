@@ -21,7 +21,11 @@ class _UserDataFieldsState extends State<UserDataFields> {
 
   final _formKey = GlobalKey<FormState>();
 
-  void sendContactInfo() async {
+  void sendContactInfo(
+      {String firstName,
+      String lastName,
+      String phoneNumber,
+      String email}) async {
     print('click');
     final url = Uri.https('api.notion.com', '/v1/pages');
 
@@ -32,16 +36,36 @@ class _UserDataFieldsState extends State<UserDataFields> {
     };
 
     final body = jsonEncode({
-      "parent": { "type": "database_id", "database_id": "633627dfd3c94a27b3e2a1b4cdee5173" },
+      "parent": {
+        "type": "database_id",
+        "database_id": "633627dfd3c94a27b3e2a1b4cdee5173"
+      },
       "properties": {
-        "email": {
-          "type": "email",
-          "email": "pasyuk.com@gmail.com"
+        "firstName": {
+          "title": [
+            {
+              "type": "text",
+              "text": {"content": "$firstName"}
+            }
+          ]
         },
+        "lastName": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {"content": "$lastName"}
+            }
+          ]
+        },
+        "email": {"type": "email", "email": "$email"},
         "phoneNumber": {
-          "type": "number",
-          "number": 123123
-        },
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {"content": "$phoneNumber"}
+            }
+          ]
+        }
       }
     });
 
@@ -191,6 +215,7 @@ class _UserDataFieldsState extends State<UserDataFields> {
                               Container(
                                 child: TextFormField(
                                   keyboardType: TextInputType.emailAddress,
+                                  textCapitalization: TextCapitalization.none,
                                   autovalidateMode: AutovalidateMode.always,
                                   validator: (value) =>
                                       EmailValidator.validate(value)
@@ -235,7 +260,11 @@ class _UserDataFieldsState extends State<UserDataFields> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
-                            sendContactInfo();
+                            sendContactInfo(
+                                firstName: name,
+                                lastName: surname,
+                                phoneNumber: phone,
+                                email: email);
                           }
                         },
                         child: Container(
