@@ -27,12 +27,19 @@ class _UserDataFieldsState extends State<UserDataFields> {
       String phoneNumber,
       String email}) async {
     print('click');
-    final url = Uri.https('api.notion.com', '/v1/pages');
+    final url = Uri.https('hook.integromat.com', '/o2aq7nbce67aq3ziplay5o4f931spxme');
 
     Map<String, String> headers = {
       "Authorization": "secret_EvIpZowywyKpoXMuOmWT9vJUpg51M8n1LRkVIyLRunJ",
       "Content-Type": "application/json",
-      "Notion-Version": "2021-05-13"
+    };
+
+    final body2 = {
+      "firstName": firstName,
+      "lastName": lastName,
+      "email": email,
+      "phoneNumber": phoneNumber
+
     };
 
     final body = jsonEncode({
@@ -69,7 +76,7 @@ class _UserDataFieldsState extends State<UserDataFields> {
       }
     });
 
-    await http.post(url, headers: headers, body: body);
+    await http.post(url, body: body2);
   }
 
   @override
