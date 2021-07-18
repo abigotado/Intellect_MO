@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intellect_mo/widgets/price_item/type.dart';
 import 'package:intellect_mo/widgets/product_description/product_description_list.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 final String arrowLeft = 'assets/icons/arrowleft.svg';
 final Widget svg = SvgPicture.asset(
@@ -35,7 +36,7 @@ class ProductPage extends StatelessWidget {
                       clipBehavior: Clip.hardEdge,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10)),
-                      child: Image.asset(value.image),
+                      child: Image.network(value.image),
                     ),
                   if (value.description != null)
                     Container(

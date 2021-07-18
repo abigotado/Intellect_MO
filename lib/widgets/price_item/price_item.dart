@@ -37,8 +37,15 @@ class PriceItem extends StatelessWidget {
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(15),
                             bottomLeft: Radius.circular(15))),
-                    child:
-                        SvgPicture.asset(value.icon, height: 60, width: 60))),
+                    child: SvgPicture.network(
+                      value.icon,
+                      height: 60,
+                      width: 60,
+                      placeholderBuilder: (BuildContext context) => Container(
+                        padding: const EdgeInsets.all(20),
+                        child: const CircularProgressIndicator(),
+                      ),
+                    ))),
             Expanded(
               flex: 5,
               child: Column(

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intellect_mo/pages/contacts_page.dart';
 import 'package:intellect_mo/pages/products_page.dart';
 import 'package:intellect_mo/widgets/main_menu/main_menu.dart';

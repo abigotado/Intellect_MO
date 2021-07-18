@@ -1,10 +1,8 @@
-import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:email_validator/email_validator.dart';
 import 'package:intellect_mo/widgets/validators/phone_validator.dart';
 import 'package:intellect_mo/widgets/validators/name_validator.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserDataFields extends StatefulWidget {
   UserDataFields({Key key}) : super(key: key);
@@ -21,62 +19,17 @@ class _UserDataFieldsState extends State<UserDataFields> {
 
   final _formKey = GlobalKey<FormState>();
 
-  void sendContactInfo(
-      {String firstName,
-      String lastName,
-      String phoneNumber,
-      String email}) async {
-    print('click');
-    final url = Uri.https('hook.integromat.com', '/o2aq7nbce67aq3ziplay5o4f931spxme');
+  final firestoreInstance = FirebaseFirestore.instance;
 
-    Map<String, String> headers = {
-      "Authorization": "secret_EvIpZowywyKpoXMuOmWT9vJUpg51M8n1LRkVIyLRunJ",
-      "Content-Type": "application/json",
-    };
-
-    final body2 = {
-      "firstName": firstName,
-      "lastName": lastName,
+  void sendContactInfo() {
+    firestoreInstance.collection('usercontacts').add({
+      "firstName": name,
+      "lastName": surname,
       "email": email,
-      "phoneNumber": phoneNumber
-
-    };
-
-    final body = jsonEncode({
-      "parent": {
-        "type": "database_id",
-        "database_id": "633627dfd3c94a27b3e2a1b4cdee5173"
-      },
-      "properties": {
-        "firstName": {
-          "title": [
-            {
-              "type": "text",
-              "text": {"content": "$firstName"}
-            }
-          ]
-        },
-        "lastName": {
-          "rich_text": [
-            {
-              "type": "text",
-              "text": {"content": "$lastName"}
-            }
-          ]
-        },
-        "email": {"type": "email", "email": "$email"},
-        "phoneNumber": {
-          "rich_text": [
-            {
-              "type": "text",
-              "text": {"content": "$phoneNumber"}
-            }
-          ]
-        }
-      }
+      "phoneNumber": phone
+    }).then((value) {
+      print(value.id);
     });
-
-    await http.post(url, body: body2);
   }
 
   @override
@@ -267,11 +220,7 @@ class _UserDataFieldsState extends State<UserDataFields> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
-                            sendContactInfo(
-                                firstName: name,
-                                lastName: surname,
-                                phoneNumber: phone,
-                                email: email);
+                            sendContactInfo();
                           }
                         },
                         child: Container(
