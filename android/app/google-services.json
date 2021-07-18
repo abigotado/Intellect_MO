@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "573605942571",
+    "project_id": "intellectmo",
+    "storage_bucket": "intellectmo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573605942571:android:3ca28b15c9e8ce4d04a16e",
+        "android_client_info": {
+          "package_name": "com.nikitakovalenko.intellect_mo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573605942571-944gsbi4sr1cblhebqkkms2ghpp00eev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJw39D2lnPFBUvkwx1c-__2p5_DngOVAw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "573605942571-944gsbi4sr1cblhebqkkms2ghpp00eev.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
