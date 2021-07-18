@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:email_validator/email_validator.dart';
 import 'package:intellect_mo/widgets/validators/phone_validator.dart';
 import 'package:intellect_mo/widgets/validators/name_validator.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserDataFields extends StatefulWidget {
   UserDataFields({Key key}) : super(key: key);

@@ -5,8 +5,11 @@ import 'package:intellect_mo/pages/contacts_page.dart';
 import 'package:intellect_mo/pages/products_page.dart';
 import 'package:intellect_mo/widgets/main_menu/main_menu.dart';
 import 'package:intellect_mo/widgets/main_menu/types.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  FirebaseApp defaultApp = await Firebase.initializeApp();
   runApp(MyApp());
 }
 

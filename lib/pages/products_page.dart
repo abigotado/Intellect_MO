@@ -3,6 +3,7 @@ import 'package:intellect_mo/widgets/banner/banner.dart';
 import 'package:intellect_mo/widgets/price_item/price_item.dart';
 import 'package:intellect_mo/widgets/price_item/type.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 final String mentalArithmeticIcon = 'assets/icons/pendilum.svg';
 final String brainIntellect = 'assets/icons/square-academic-cap.svg';
@@ -17,8 +18,32 @@ final Widget svg = SvgPicture.asset(
   height: 26,
 );
 
-class ProductsPage extends StatelessWidget {
+class ProductsPage extends StatefulWidget {
   ProductsPage({Key key}) : super(key: key);
+
+  @override
+  _ProductsPageState createState() => _ProductsPageState();
+}
+
+class _ProductsPageState extends State<ProductsPage> {
+  List<PriceItemType> products = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final productsRef = FirebaseFirestore.instance.collection('products');
+    productsRef.get().then((serverProducts) {
+      List<PriceItemType> preparedProducts = [];
+      for(var product in serverProducts.docs){
+        PriceItemType prepareProduct = PriceItemType(name: product.get('name'), price: product.get('price'));
+        preparedProducts.add(prepareProduct);
+      }
+      setState(() {
+        products = preparedProducts;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +58,7 @@ class ProductsPage extends StatelessWidget {
             "На первом этапе необходимо научиться считать с помощью специальных счётов - абакуса. При этом также тренируется мелкая моторика рук",
             "Затем можно переходить к так называемым воображаемым счётах. То есть представлять абакус в голове и считать ментально. Это позволяет развить творческое мышление и воображение",
             "Также ребёнок овладевает моментальным устным счётом. В итоге ему становится значительно проще осуществлять различную творческую и интеллектуальную деятельность",
-            "Кроме того, ребёнок учится быстро решать различные задачи, прибегая к нестандартным подходам"
+            "Кроме того, ребёнок учится быстро решать различные задачи, прибегая к нестандартным подходам."
           ],
           image: 'assets/images/mentari.png'),
       PriceItemType(
@@ -114,9 +139,9 @@ class ProductsPage extends StatelessWidget {
             children: [
               Expanded(
                   child: ListView.builder(
-                      itemCount: priceListItems.length,
+                      itemCount: products.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return PriceItem(value: priceListItems[index]);
+                        return PriceItem(value: products[index]);
                       })),
               Container(
                   margin: EdgeInsets.only(left: 30, top: 5, right: 30),
@@ -136,6 +161,4 @@ class ProductsPage extends StatelessWidget {
           elevation: 0,
         ));
   }
-
-
 }
