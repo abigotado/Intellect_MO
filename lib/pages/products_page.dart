@@ -11,12 +11,6 @@ final String learnReading = 'assets/icons/textbook.svg';
 final String fastReading = 'assets/icons/books.svg';
 final String schoolPreparation = 'assets/icons/backpack.svg';
 final String homework = 'assets/icons/evaluation.svg';
-final String watches = 'assets/icons/timeicon.svg';
-final Widget svg = SvgPicture.asset(
-  watches,
-  width: 26,
-  height: 26,
-);
 
 class ProductsPage extends StatefulWidget {
   ProductsPage({Key key}) : super(key: key);
@@ -59,10 +53,7 @@ class _ProductsPageState extends State<ProductsPage> {
           child: Container(
             color: Color(0xFFF8FAFF),
             padding: EdgeInsets.only(bottom: 115),
-            child: Column(
-              children: [
-                Expanded(
-                    child: StreamBuilder<QuerySnapshot>(
+            child: StreamBuilder<QuerySnapshot>(
                         stream: db.collection('products').snapshots(),
                         builder: (context, snapshot) {
                           if (!snapshot.hasData) {
@@ -75,15 +66,9 @@ class _ProductsPageState extends State<ProductsPage> {
                                 itemBuilder: (BuildContext context, int index) {
                                   return PriceItem(value: products[index]);
                                 });
-                        })),
-                Container(
-                    margin: EdgeInsets.only(left: 30, top: 5, right: 30),
-                    child: FirstLessonInfo(
-                        icon: svg, text: "Первое занятие бесплатно!")),
-              ],
+                        }),
             ),
           ),
-        ),
         appBar: AppBar(
           title: Text(
             "Наши занятия".toUpperCase(),

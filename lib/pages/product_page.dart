@@ -3,15 +3,21 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intellect_mo/widgets/banner/banner.dart';
 import 'package:intellect_mo/widgets/price_item/type.dart';
 import 'package:intellect_mo/widgets/product_description/product_description_list.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 final String arrowLeft = 'assets/icons/arrowleft.svg';
-final Widget svg = SvgPicture.asset(
+final String watches = 'assets/icons/timeicon.svg';
+final Widget svgArrowLeft = SvgPicture.asset(
   arrowLeft,
   width: 10,
   height: 20,
+);
+final Widget svgWatches = SvgPicture.asset(
+watches,
+width: 26,
+height: 26,
 );
 
 class ProductPage extends StatelessWidget {
@@ -52,11 +58,19 @@ class ProductPage extends StatelessWidget {
                                       fontSize: 14)),
                             for (var descriptionItem in value.description)
                               ProductDescription(description: descriptionItem),
+                            Container(
+                              margin: EdgeInsets.only(top: 20),
+                              child: Center(
+                                child: Text("Стоимость занятия: ${value.price} руб./час",
+                                    style: TextStyle(
+                                        fontSize: 16, fontWeight: FontWeight.bold)),
+                              ),
+                            ),
                           ],
                         )),
                   Container(
                       margin: EdgeInsets.only(
-                          left: 20, top: 25, right: 25, bottom: 25),
+                          left: 20, top: 10, right: 25, bottom: 10),
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -66,9 +80,13 @@ class ProductPage extends StatelessWidget {
                       ),
                       child: Center(
                           child: Text(
-                              "Стоимость занятия: ${value.price} руб./час",
+                              "Записаться".toUpperCase(),
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold)))),
+                  Container(
+                      margin: EdgeInsets.only(left: 40, top: 10, right: 40, bottom: 20),
+                      child: FirstLessonInfo(
+                          icon: svgWatches, text: "Первое занятие бесплатно!")),
                 ],
               ),
             ),
@@ -94,7 +112,7 @@ class ProductPage extends StatelessWidget {
           backgroundColor: Color(0xFFF8FAFF),
           centerTitle: true,
           leading: GestureDetector(
-            child: Container(child: Center(child: svg)),
+            child: Container(child: Center(child: svgArrowLeft)),
             onTap: () {
               Navigator.pop(context);
             },

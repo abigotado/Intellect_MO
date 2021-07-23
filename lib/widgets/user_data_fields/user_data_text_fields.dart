@@ -39,7 +39,7 @@ class _UserDataFieldsState extends State<UserDataFields> {
       child: Container(
         padding: EdgeInsets.only(bottom: 105),
         child: Container(
-          margin: EdgeInsets.fromLTRB(25, 30, 25, 170),
+          margin: EdgeInsets.fromLTRB(25, 30, 25, 50),
           padding: EdgeInsets.only(top: 20),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
@@ -50,7 +50,7 @@ class _UserDataFieldsState extends State<UserDataFields> {
               child: Column(
                 children: [
                   Expanded(
-                      flex: 12,
+                      flex: 14,
                       child: Container(
                         padding:
                             EdgeInsets.only(left: 20, right: 20, bottom: 20),
