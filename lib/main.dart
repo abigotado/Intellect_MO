@@ -1,10 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intellect_mo/pages/contacts_page.dart';
 import 'package:intellect_mo/pages/products_page.dart';
+import 'package:intellect_mo/pages/requests_page.dart';
+import 'package:intellect_mo/pages/school_page.dart';
 import 'package:intellect_mo/widgets/main_menu/main_menu.dart';
 import 'package:intellect_mo/widgets/main_menu/types.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,8 +22,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
   final List<TabItem> mainMenu = [
+    TabItem("Центр", 'assets/icons/Home.svg'),
     TabItem("Занятия", 'assets/icons/lessons.svg'),
     TabItem("Контакты", 'assets/icons/contacts.svg'),
+    TabItem("Заявки", 'assets/icons/User_add_alt_fill.svg'),
   ];
 
   Color primaryColor;
@@ -63,12 +67,14 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
             TabBarView(
               controller: _tabController,
               children: [
+                SchoolPage(),
                 ProductsPage(),
                 ContactsPage(),
+                RequestsPage(),
               ],
             ),
             Container(
-              margin: EdgeInsets.only(left: 25, top: 15, right: 25, bottom: 25),
+              margin: EdgeInsets.all(10),
               padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),

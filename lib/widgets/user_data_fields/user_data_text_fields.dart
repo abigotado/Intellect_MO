@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:intellect_mo/widgets/validators/phone_validator.dart';
 import 'package:intellect_mo/widgets/validators/name_validator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserDataFields extends StatefulWidget {
   UserDataFields({Key key}) : super(key: key);
@@ -20,8 +21,10 @@ class _UserDataFieldsState extends State<UserDataFields> {
   final _formKey = GlobalKey<FormState>();
 
   final firestoreInstance = FirebaseFirestore.instance;
+  Future<SharedPreferences> sharedPrefs = SharedPreferences.getInstance();
 
-  void sendContactInfo() {
+  void sendContactInfo() async {
+    final SharedPreferences prefs = await sharedPrefs;
     firestoreInstance.collection('usercontacts').add({
       "firstName": name,
       "lastName": surname,
@@ -29,8 +32,32 @@ class _UserDataFieldsState extends State<UserDataFields> {
       "phoneNumber": phone
     }).then((value) {
       print(value.id);
+      prefs.setString('firstName', name);
+      prefs.setString('lastName', surname);
+      prefs.setString('email', email);
+      prefs.setString('phoneNumber', phone);
     });
   }
+
+  Future<void> getDataFromSharedPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String firstName = prefs.getString('firstName') ?? '';
+    String lastName = prefs.getString('lastName') ?? '';
+    String emailAddress = prefs.getString('email') ?? '';
+    String phoneNumber = prefs.getString('phoneNumber') ?? '';
+    setState(() {
+      name = firstName;
+      surname = lastName;
+      email = emailAddress;
+      phone = phoneNumber;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getDataFromSharedPrefs();
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +103,8 @@ class _UserDataFieldsState extends State<UserDataFields> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 10),
                                 child: TextFormField(
+                                  key: UniqueKey(),
+                                  initialValue: name,
                                   autovalidateMode: AutovalidateMode.always,
                                   validator: nameValidator,
                                   textCapitalization: TextCapitalization.words,
@@ -109,6 +138,8 @@ class _UserDataFieldsState extends State<UserDataFields> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 10),
                                 child: TextFormField(
+                                  key: UniqueKey(),
+                                  initialValue: surname,
                                   autovalidateMode: AutovalidateMode.always,
                                   validator: nameValidator,
                                   textCapitalization: TextCapitalization.words,
@@ -142,6 +173,8 @@ class _UserDataFieldsState extends State<UserDataFields> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 10),
                                 child: TextFormField(
+                                  key: UniqueKey(),
+                                  initialValue: phone,
                                   keyboardType: TextInputType.phone,
                                   autovalidateMode: AutovalidateMode.always,
                                   validator: phoneValidator,
@@ -174,6 +207,8 @@ class _UserDataFieldsState extends State<UserDataFields> {
                               ),
                               Container(
                                 child: TextFormField(
+                                  key: UniqueKey(),
+                                  initialValue: email,
                                   keyboardType: TextInputType.emailAddress,
                                   textCapitalization: TextCapitalization.none,
                                   autovalidateMode: AutovalidateMode.always,

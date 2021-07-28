@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intellect_mo/widgets/price_item/type.dart';
 
 final String arrowLeft = 'assets/icons/arrowleft.svg';
 final String watches = 'assets/icons/timeicon.svg';
@@ -17,8 +18,10 @@ final Widget svgWatches = SvgPicture.asset(
   height: 26,
 );
 
-class ContactsPage extends StatelessWidget {
-  const ContactsPage({Key key}) : super(key: key);
+class SchoolPage extends StatelessWidget {
+  final PriceItemType value;
+
+  const SchoolPage({Key key, this.value}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +39,12 @@ class ContactsPage extends StatelessWidget {
                     clipBehavior: Clip.hardEdge,
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                    child: Text('Как с нами связаться'),
+                    child: Text('О нашем центре'),
                   ),
                   Container(
                       margin: EdgeInsets.only(
                           left: 25, top: 25, right: 25, bottom: 20),
-                      child: Text('Наш адрес')),
+                      child: Text('Наш учитель')),
                 ],
               ),
             ),
@@ -49,7 +52,7 @@ class ContactsPage extends StatelessWidget {
         ),
         appBar: AppBar(
           title: Text(
-            "Контакты".toUpperCase(),
+            "Наш центр".toUpperCase(),
             style: TextStyle(color: Colors.black),
           ),
           backgroundColor: Color(0xFFF8FAFF),

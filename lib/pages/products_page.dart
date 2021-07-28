@@ -52,7 +52,7 @@ class _ProductsPageState extends State<ProductsPage> {
         body: SafeArea(
           child: Container(
             color: Color(0xFFF8FAFF),
-            padding: EdgeInsets.only(bottom: 115),
+            padding: EdgeInsets.only(bottom: 100),
             child: StreamBuilder<QuerySnapshot>(
                         stream: db.collection('products').snapshots(),
                         builder: (context, snapshot) {
