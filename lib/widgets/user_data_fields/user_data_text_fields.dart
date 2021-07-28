@@ -1,10 +1,9 @@
-import 'dart:convert';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:email_validator/email_validator.dart';
 import 'package:intellect_mo/widgets/validators/phone_validator.dart';
 import 'package:intellect_mo/widgets/validators/name_validator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserDataFields extends StatefulWidget {
   UserDataFields({Key key}) : super(key: key);
@@ -21,56 +20,44 @@ class _UserDataFieldsState extends State<UserDataFields> {
 
   final _formKey = GlobalKey<FormState>();
 
-  void sendContactInfo(
-      {String firstName,
-      String lastName,
-      String phoneNumber,
-      String email}) async {
-    print('click');
-    final url = Uri.https('api.notion.com', '/v1/pages');
+  final firestoreInstance = FirebaseFirestore.instance;
+  Future<SharedPreferences> sharedPrefs = SharedPreferences.getInstance();
 
-    Map<String, String> headers = {
-      "Authorization": "secret_EvIpZowywyKpoXMuOmWT9vJUpg51M8n1LRkVIyLRunJ",
-      "Content-Type": "application/json",
-      "Notion-Version": "2021-05-13"
-    };
-
-    final body = jsonEncode({
-      "parent": {
-        "type": "database_id",
-        "database_id": "633627dfd3c94a27b3e2a1b4cdee5173"
-      },
-      "properties": {
-        "firstName": {
-          "title": [
-            {
-              "type": "text",
-              "text": {"content": "$firstName"}
-            }
-          ]
-        },
-        "lastName": {
-          "rich_text": [
-            {
-              "type": "text",
-              "text": {"content": "$lastName"}
-            }
-          ]
-        },
-        "email": {"type": "email", "email": "$email"},
-        "phoneNumber": {
-          "rich_text": [
-            {
-              "type": "text",
-              "text": {"content": "$phoneNumber"}
-            }
-          ]
-        }
-      }
+  void sendContactInfo() async {
+    final SharedPreferences prefs = await sharedPrefs;
+    firestoreInstance.collection('usercontacts').add({
+      "firstName": name,
+      "lastName": surname,
+      "email": email,
+      "phoneNumber": phone
+    }).then((value) {
+      print(value.id);
+      prefs.setString('firstName', name);
+      prefs.setString('lastName', surname);
+      prefs.setString('email', email);
+      prefs.setString('phoneNumber', phone);
     });
-
-    await http.post(url, headers: headers, body: body);
   }
+
+  Future<void> getDataFromSharedPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String firstName = prefs.getString('firstName') ?? '';
+    String lastName = prefs.getString('lastName') ?? '';
+    String emailAddress = prefs.getString('email') ?? '';
+    String phoneNumber = prefs.getString('phoneNumber') ?? '';
+    setState(() {
+      name = firstName;
+      surname = lastName;
+      email = emailAddress;
+      phone = phoneNumber;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getDataFromSharedPrefs();
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +66,7 @@ class _UserDataFieldsState extends State<UserDataFields> {
       child: Container(
         padding: EdgeInsets.only(bottom: 105),
         child: Container(
-          margin: EdgeInsets.fromLTRB(25, 30, 25, 170),
+          margin: EdgeInsets.fromLTRB(25, 30, 25, 50),
           padding: EdgeInsets.only(top: 20),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
@@ -90,7 +77,7 @@ class _UserDataFieldsState extends State<UserDataFields> {
               child: Column(
                 children: [
                   Expanded(
-                      flex: 12,
+                      flex: 14,
                       child: Container(
                         padding:
                             EdgeInsets.only(left: 20, right: 20, bottom: 20),
@@ -116,6 +103,8 @@ class _UserDataFieldsState extends State<UserDataFields> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 10),
                                 child: TextFormField(
+                                  key: UniqueKey(),
+                                  initialValue: name,
                                   autovalidateMode: AutovalidateMode.always,
                                   validator: nameValidator,
                                   textCapitalization: TextCapitalization.words,
@@ -149,6 +138,8 @@ class _UserDataFieldsState extends State<UserDataFields> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 10),
                                 child: TextFormField(
+                                  key: UniqueKey(),
+                                  initialValue: surname,
                                   autovalidateMode: AutovalidateMode.always,
                                   validator: nameValidator,
                                   textCapitalization: TextCapitalization.words,
@@ -182,6 +173,8 @@ class _UserDataFieldsState extends State<UserDataFields> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 10),
                                 child: TextFormField(
+                                  key: UniqueKey(),
+                                  initialValue: phone,
                                   keyboardType: TextInputType.phone,
                                   autovalidateMode: AutovalidateMode.always,
                                   validator: phoneValidator,
@@ -214,6 +207,8 @@ class _UserDataFieldsState extends State<UserDataFields> {
                               ),
                               Container(
                                 child: TextFormField(
+                                  key: UniqueKey(),
+                                  initialValue: email,
                                   keyboardType: TextInputType.emailAddress,
                                   textCapitalization: TextCapitalization.none,
                                   autovalidateMode: AutovalidateMode.always,
@@ -260,11 +255,7 @@ class _UserDataFieldsState extends State<UserDataFields> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
-                            sendContactInfo(
-                                firstName: name,
-                                lastName: surname,
-                                phoneNumber: phone,
-                                email: email);
+                            sendContactInfo();
                           }
                         },
                         child: Container(

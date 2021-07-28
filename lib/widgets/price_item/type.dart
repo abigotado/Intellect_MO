@@ -4,7 +4,7 @@ class PriceItemType {
   String name;
   int price;
   String image;
-  List<String> description;
+  List<dynamic> description;
   String descriptionTitle;
   String icon;
 
