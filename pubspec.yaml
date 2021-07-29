@@ -23,11 +23,11 @@ environment:
 dependencies:
   firebase_analytics: ^8.1.2
   firebase_core: ^1.3.0
-  cloud_firestore: 2.2.2
+  cloud_firestore: 2.4.0
   firebase_storage: ^10.0.1
   flutter_svg: ^0.22.0
   http: ^0.13.3
-  email_validator: ^1.0.6
+  email_validator: ^2.0.1
   shared_preferences: ^2.0.6
 
   flutter:
