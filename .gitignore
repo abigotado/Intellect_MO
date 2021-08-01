@@ -26,6 +26,8 @@
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
+flutter_export_environment.sh
+Generated.xcconfig
 .packages
 .pub-cache/
 .pub/
@@ -86,3 +88,4 @@ Icon?
 .tags*
 
 build/
+local.properties
