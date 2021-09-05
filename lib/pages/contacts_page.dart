@@ -60,48 +60,57 @@ class ContactsPage extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Container(
-                        margin: EdgeInsets.only(
-                            left: 20, top: 25, right: 10, bottom: 15),
-                        padding: EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                            color: Color.fromRGBO(70, 199, 253, 0.03),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          children: [Text('Телефон'), Text('+79636334242')],
-                        )),
-                    Container(
-                        margin: EdgeInsets.only(top: 25, right: 20, bottom: 15),
-                        padding: EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                            color: Color.fromRGBO(70, 144, 253, 0.03),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          children: [Text('Телефон'), Text('+79636334242')],
-                        )),
+                    Expanded(
+                      child: Container(
+                          margin: EdgeInsets.only(
+                              left: 20, top: 25, right: 10, bottom: 15),
+                          padding: EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                              color: Color.fromRGBO(70, 199, 253, 0.03),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            children: [Text('Телефон'), Text('+79636334242')],
+                          )),
+                    ),
+                    Expanded(
+                      child: Container(
+                          margin:
+                              EdgeInsets.only(top: 25, right: 20, bottom: 15),
+                          padding: EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                              color: Color.fromRGBO(70, 144, 253, 0.03),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            children: [Text('Телефон'), Text('+79636334242')],
+                          )),
+                    ),
                   ],
                 ),
                 Row(
                   children: [
-                    Container(
-                        margin:
-                            EdgeInsets.only(left: 20, right: 10, bottom: 15),
-                        padding: EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                            color: Color.fromRGBO(240, 18, 131, 0.03),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          children: [Text('Телефон'), Text('+79636334242')],
-                        )),
-                    Container(
-                        margin: EdgeInsets.only(right: 20, bottom: 15),
-                        padding: EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                            color: Color.fromRGBO(245, 152, 38, 0.03),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          children: [Text('Телефон'), Text('+79636334242')],
-                        )),
+                    Expanded(
+                      child: Container(
+                          margin:
+                              EdgeInsets.only(left: 20, right: 10, bottom: 15),
+                          padding: EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                              color: Color.fromRGBO(240, 18, 131, 0.03),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            children: [Text('Телефон'), Text('+79636334242')],
+                          )),
+                    ),
+                    Expanded(
+                      child: Container(
+                          margin: EdgeInsets.only(right: 20, bottom: 15),
+                          padding: EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                              color: Color.fromRGBO(245, 152, 38, 0.03),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            children: [Text('Телефон'), Text('+79636334242')],
+                          )),
+                    ),
                   ],
                 ),
                 Row(
