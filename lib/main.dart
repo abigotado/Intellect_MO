@@ -1,12 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intellect_mo/pages/contacts_page.dart';
-import 'package:intellect_mo/pages/products_page.dart';
-import 'package:intellect_mo/pages/requests_page.dart';
-import 'package:intellect_mo/pages/school_page.dart';
-import 'package:intellect_mo/widgets/main_menu/main_menu.dart';
-import 'package:intellect_mo/widgets/main_menu/types.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:intellect_mo/pages/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,76 +17,16 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
-  final List<TabItem> mainMenu = [
-    TabItem("Центр", 'assets/icons/Home.svg'),
-    TabItem("Занятия", 'assets/icons/lessons.svg'),
-    TabItem("Контакты", 'assets/icons/contacts.svg'),
-    TabItem("Заявки", 'assets/icons/User_add_alt_fill.svg'),
-  ];
-
-  Color primaryColor;
-  TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController =
-        TabController(length: mainMenu.length, vsync: this, initialIndex: 0);
-
-    _tabController.addListener(() {
-      _handleTabSelection();
-    });
-  }
-
-  void _handleTabSelection() {
-    _tabController.index = _tabController.index;
-    setState(() {
-      switch (_tabController.index) {
-        case 0:
-          primaryColor = Color(0xFFF8FAFF);
-          break;
-        case 1:
-          primaryColor = Color.fromRGBO(81, 140, 255, 1);
-          break;
-        default:
-      }
-    });
-  }
-
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ScreenUtilInit(
+      designSize: Size(360, 690),
+      builder: () => GetMaterialApp(
         theme: ThemeData(fontFamily: 'Roboto'),
-        home: Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: Stack(alignment: Alignment.bottomCenter, children: [
-            TabBarView(
-              controller: _tabController,
-              children: [
-                SchoolPage(),
-                ProductsPage(),
-                ContactsPage(),
-                RequestsPage(),
-              ],
-            ),
-            Container(
-              margin: EdgeInsets.all(10),
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Colors.white,
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(11),
-                child: MainMenu(
-                  tabs: mainMenu,
-                  tabController: _tabController,
-                ),
-              ),
-            ),
-          ]),
-        ));
+        home: SplashScreen(),
+      ),
+    );
   }
 }
 
