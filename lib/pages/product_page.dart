@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intellect_mo/models/type.dart';
 import 'package:intellect_mo/pages/requests_page.dart';
 import 'package:intellect_mo/widgets/banner/banner.dart';
-import 'package:intellect_mo/widgets/price_item/type.dart';
 import 'package:intellect_mo/widgets/product_description/product_description_list.dart';
 
 final String arrowLeft = 'assets/icons/arrowleft.svg';

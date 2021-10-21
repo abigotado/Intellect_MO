@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:intellect_mo/widgets/validators/phone_validator.dart';
+import 'package:flutter/material.dart';
 import 'package:intellect_mo/widgets/validators/name_validator.dart';
+import 'package:intellect_mo/widgets/validators/phone_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserDataFields extends StatefulWidget {
@@ -57,7 +57,7 @@ class _UserDataFieldsState extends State<UserDataFields> {
   void initState() {
     super.initState();
     getDataFromSharedPrefs();
-    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +105,8 @@ class _UserDataFieldsState extends State<UserDataFields> {
                                 child: TextFormField(
                                   key: UniqueKey(),
                                   initialValue: name,
-                                  autovalidateMode: AutovalidateMode.always,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
                                   validator: nameValidator,
                                   textCapitalization: TextCapitalization.words,
                                   decoration: InputDecoration(
@@ -140,7 +141,8 @@ class _UserDataFieldsState extends State<UserDataFields> {
                                 child: TextFormField(
                                   key: UniqueKey(),
                                   initialValue: surname,
-                                  autovalidateMode: AutovalidateMode.always,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
                                   validator: nameValidator,
                                   textCapitalization: TextCapitalization.words,
                                   decoration: InputDecoration(
@@ -176,7 +178,8 @@ class _UserDataFieldsState extends State<UserDataFields> {
                                   key: UniqueKey(),
                                   initialValue: phone,
                                   keyboardType: TextInputType.phone,
-                                  autovalidateMode: AutovalidateMode.always,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
                                   validator: phoneValidator,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -211,7 +214,8 @@ class _UserDataFieldsState extends State<UserDataFields> {
                                   initialValue: email,
                                   keyboardType: TextInputType.emailAddress,
                                   textCapitalization: TextCapitalization.none,
-                                  autovalidateMode: AutovalidateMode.always,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
                                   validator: (value) =>
                                       EmailValidator.validate(value)
                                           ? null

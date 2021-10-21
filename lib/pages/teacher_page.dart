@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intellect_mo/models/type.dart';
 import 'package:intellect_mo/widgets/banner/banner.dart';
-import 'package:intellect_mo/widgets/price_item/type.dart';
 import 'package:intellect_mo/widgets/product_description/product_description_list.dart';
 
 final String arrowLeft = 'assets/icons/arrowleft.svg';
@@ -61,9 +61,11 @@ class TeacherPage extends StatelessWidget {
                             Container(
                               margin: EdgeInsets.only(top: 20),
                               child: Center(
-                                child: Text("Стоимость занятия: ${value.price} руб./час",
+                                child: Text(
+                                    "Стоимость занятия: ${value.price} руб./час",
                                     style: TextStyle(
-                                        fontSize: 16, fontWeight: FontWeight.bold)),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
                               ),
                             ),
                           ],
@@ -79,12 +81,12 @@ class TeacherPage extends StatelessWidget {
                             width: 1, color: Color.fromRGBO(0, 17, 51, 0.03)),
                       ),
                       child: Center(
-                          child: Text(
-                              "Записаться".toUpperCase(),
+                          child: Text("Записаться".toUpperCase(),
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold)))),
                   Container(
-                      margin: EdgeInsets.only(left: 40, top: 10, right: 40, bottom: 20),
+                      margin: EdgeInsets.only(
+                          left: 40, top: 10, right: 40, bottom: 20),
                       child: FirstLessonInfo(
                           icon: svgWatches, text: "Первое занятие бесплатно!")),
                 ],

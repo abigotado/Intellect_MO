@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intellect_mo/pages/products_page.dart';
 import 'package:intellect_mo/pages/requests_page.dart';
 import 'package:intellect_mo/pages/school_page.dart';
@@ -64,8 +63,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           ],
         ),
         Container(
-          margin: EdgeInsets.all(10.r),
-          padding: EdgeInsets.all(5.r),
+          margin: EdgeInsets.all(10),
+          padding: EdgeInsets.all(5),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Colors.white,
