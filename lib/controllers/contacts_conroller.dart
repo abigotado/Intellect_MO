@@ -9,8 +9,7 @@ class ContactsController extends GetxController with StateMixin<Contacts> {
   @override
   void onInit() {
     super.onInit();
-    getContacts();
-    change(contacts, status: RxStatus.success());
+    load();
   }
 
   getContacts() async {
@@ -28,5 +27,10 @@ class ContactsController extends GetxController with StateMixin<Contacts> {
       );
       return _contacts;
     }
+  }
+
+  load() async {
+    await getContacts();
+    update();
   }
 }
