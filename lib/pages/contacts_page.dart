@@ -1,9 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intellect_mo/controllers/contacts_conroller.dart';
+import 'package:intellect_mo/pages/teacher_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactsPage extends StatelessWidget {
   const ContactsPage({Key key}) : super(key: key);
@@ -26,7 +30,7 @@ class ContactsPage extends StatelessWidget {
                           Center(
                             child: Container(
                               margin: EdgeInsets.only(
-                                  left: 120, top: 0, right: 120, bottom: 20),
+                                  left: 120, top: 0, right: 120, bottom: 15),
                               padding: EdgeInsets.only(
                                   left: 20, right: 20, bottom: 20),
                               clipBehavior: Clip.hardEdge,
@@ -37,36 +41,34 @@ class ContactsPage extends StatelessWidget {
                                       bottomRight: Radius.circular(71))),
                               child: Container(
                                 margin: EdgeInsets.only(top: 110),
+                                padding: EdgeInsets.all(8),
                                 height: 90,
                                 width: 90,
                                 decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(45)),
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                ),
                                 clipBehavior: Clip.hardEdge,
-                                child: Image.network(value.contacts.schoolLogo),
+                                child: SvgPicture.network(
+                                    value.contacts.schoolLogo,
+                                    fit: BoxFit.scaleDown),
                               ),
                             ),
                           ),
-                          Center(
-                            child: Container(
-                              margin: EdgeInsets.only(
-                                  left: 120, top: 17, right: 120),
-                              child: Column(
-                                children: [
-                                  Center(
-                                      child: Text('Интеллект МО',
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500))),
-                                  Center(
-                                      child: Text('Южный лёд',
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              color: Color.fromRGBO(
-                                                  0, 17, 51, 0.5)))),
-                                ],
-                              ),
-                            ),
+                          Column(
+                            children: [
+                              Center(
+                                  child: Text('Интеллект МО',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500))),
+                              Center(
+                                  child: Text('Южный лёд',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color:
+                                              Color.fromRGBO(0, 17, 51, 0.5)))),
+                            ],
                           ),
                           Row(
                             children: [
@@ -74,7 +76,7 @@ class ContactsPage extends StatelessWidget {
                                 child: Container(
                                     margin: EdgeInsets.only(
                                         left: 20,
-                                        top: 25,
+                                        top: 20,
                                         right: 10,
                                         bottom: 15),
                                     padding: EdgeInsets.all(15),
@@ -84,16 +86,62 @@ class ContactsPage extends StatelessWidget {
                                         borderRadius:
                                             BorderRadius.circular(10)),
                                     child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text('Наш сайт'),
-                                        Text(value?.contacts?.website)
+                                        Icon(
+                                          CupertinoIcons.at,
+                                          color: Color(0xFF46C7FD),
+                                          size: 14,
+                                        ),
+                                        Text('Наш сайт и email',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500)),
+                                        SelectableText.rich(
+                                          TextSpan(children: [
+                                            TextSpan(
+                                              text:
+                                                  value?.contacts?.websiteShort,
+                                              style: TextStyle(
+                                                color: Colors.blue,
+                                                fontSize: 12,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
+                                              recognizer: TapGestureRecognizer()
+                                                ..onTap = () {
+                                                  launch(
+                                                      value?.contacts?.website);
+                                                },
+                                            ),
+                                          ]),
+                                        ),
+                                        SelectableText.rich(
+                                          TextSpan(children: [
+                                            TextSpan(
+                                              text: value?.contacts?.emailShort,
+                                              style: TextStyle(
+                                                color: Colors.blue,
+                                                fontSize: 12,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
+                                              recognizer: TapGestureRecognizer()
+                                                ..onTap = () {
+                                                  launch(value
+                                                      ?.contacts?.schoolEmail);
+                                                },
+                                            ),
+                                          ]),
+                                        ),
                                       ],
                                     )),
                               ),
                               Expanded(
                                 child: Container(
                                     margin: EdgeInsets.only(
-                                        top: 25, right: 20, bottom: 15),
+                                        top: 20, right: 20, bottom: 15),
                                     padding: EdgeInsets.all(15),
                                     decoration: BoxDecoration(
                                         color:
@@ -101,9 +149,62 @@ class ContactsPage extends StatelessWidget {
                                         borderRadius:
                                             BorderRadius.circular(10)),
                                     child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text('Телефон'),
-                                        Text('+79636334242')
+                                        Icon(
+                                          CupertinoIcons.placemark,
+                                          color: Color(0xFF4690FD),
+                                          size: 14,
+                                        ),
+                                        Text('Наш адрес',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500)),
+                                        SelectableText.rich(
+                                          TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: value
+                                                    .contacts?.teacherPhone,
+                                                style: TextStyle(
+                                                  color: Colors.blue,
+                                                  fontSize: 12,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                                recognizer:
+                                                    TapGestureRecognizer()
+                                                      ..onTap = () {
+                                                        launch(
+                                                            'tel://${value?.contacts?.teacherPhone}');
+                                                      },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SelectableText.rich(
+                                          TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: value
+                                                    .contacts?.managerPhone,
+                                                style: TextStyle(
+                                                  color: Colors.blue,
+                                                  fontSize: 12,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                                recognizer:
+                                                    TapGestureRecognizer()
+                                                      ..onTap = () {
+                                                        launch(
+                                                            'tel://${value?.contacts?.managerPhone}');
+                                                      },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     )),
                               ),
@@ -122,9 +223,72 @@ class ContactsPage extends StatelessWidget {
                                         borderRadius:
                                             BorderRadius.circular(10)),
                                     child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text('Телефон'),
-                                        Text('+79636334242')
+                                        Icon(
+                                          CupertinoIcons.phone,
+                                          color: Color(0xFFF01283),
+                                          size: 14,
+                                        ),
+                                        RichText(
+                                          text: TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                  text: 'Телефон (',
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.black,
+                                                  )),
+                                              TextSpan(
+                                                text: 'учитель',
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.blue,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                                recognizer:
+                                                    TapGestureRecognizer()
+                                                      ..onTap = () {
+                                                        Get.to(() =>
+                                                            TeacherPage());
+                                                      },
+                                              ),
+                                              TextSpan(
+                                                  text: ')',
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.black,
+                                                  )),
+                                            ],
+                                          ),
+                                        ),
+                                        SelectableText.rich(
+                                          TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: value
+                                                    .contacts?.teacherPhone,
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                  color: Colors.black,
+                                                ),
+                                                recognizer:
+                                                    TapGestureRecognizer()
+                                                      ..onTap = () {
+                                                        launch(
+                                                            'tel://${value?.contacts?.teacherPhone}');
+                                                      },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     )),
                               ),
@@ -139,9 +303,40 @@ class ContactsPage extends StatelessWidget {
                                         borderRadius:
                                             BorderRadius.circular(10)),
                                     child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text('Телефон'),
-                                        Text('+79636334242')
+                                        Icon(
+                                          CupertinoIcons.phone_circle,
+                                          color: Color(0xFFF59826),
+                                          size: 14,
+                                        ),
+                                        Text('Телефон (менеджер)',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500)),
+                                        SelectableText.rich(
+                                          TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: value
+                                                    .contacts?.managerPhone,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                                recognizer:
+                                                    TapGestureRecognizer()
+                                                      ..onTap = () {
+                                                        launch(
+                                                            'tel://${value?.contacts?.managerPhone}');
+                                                      },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     )),
                               ),
@@ -160,8 +355,13 @@ class ContactsPage extends StatelessWidget {
                                         borderRadius:
                                             BorderRadius.circular(10)),
                                     child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text('Телефон'),
+                                        Text('Наш Instagram',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500)),
                                         Text('+79636334242')
                                       ],
                                     )),
@@ -177,8 +377,13 @@ class ContactsPage extends StatelessWidget {
                                         borderRadius:
                                             BorderRadius.circular(10)),
                                     child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text('Телефон'),
+                                        Text('Мы в Facebook',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500)),
                                         Text('+79636334242')
                                       ],
                                     )),

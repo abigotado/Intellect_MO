@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'main_screen.dart';
@@ -20,6 +21,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(child: Image.asset('assets/images/intellectmo_icon.png')));
+        body: Padding(
+      padding: const EdgeInsets.all(50),
+      child: Center(
+          child: SvgPicture.asset(
+        'assets/icons/intellectmo-logo.svg',
+        fit: BoxFit.scaleDown,
+      )),
+    ));
   }
 }

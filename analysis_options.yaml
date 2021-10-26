@@ -1,0 +1,116 @@
+include: package:lint/analysis_options.yaml
+
+linter:
+  rules:
+    # ------ Disable individual rules ----- #
+    #                 ---                   #
+    # Turn off what you don't like.         #
+    # ------------------------------------- #
+
+    # Use parameter order as in json response
+    always_put_required_named_parameters_first: true
+
+    # Util classes are awesome!
+    avoid_classes_with_only_static_members: false
+
+
+    # ------ Enable individual rules ------ #
+    #                 ---                   #
+    # These rules here are good but too     #
+    # opinionated to enable them by default #
+    # ------------------------------------- #
+
+    # Make constructors the first thing in every class
+    sort_constructors_first: true
+
+    # The new tabs vs. spaces. Choose wisely
+    prefer_single_quotes: true
+    prefer_double_quotes: false
+
+    # Good packages document everything
+    public_member_api_docs: false
+
+    # Blindly follow the Flutter code style, which prefers types everywhere
+    always_specify_types: true
+
+    # Back to the 80s
+    lines_longer_than_80_chars: false
+
+    # Avoid empty else statements
+    avoid_empty_else: true
+
+    # Avoid print calls in production code.
+    avoid_print: true
+
+    # Avoid empty statements
+    empty_statements: true
+
+    # Boolean expression composed only with literals
+    literal_only_boolean_expressions: true
+
+    # Avoid using unnecessary statements
+    unnecessary_statements: true
+
+    # Do not use BuildContexts across async gaps
+    use_build_context_synchronously: true
+
+    # Use key in widget constructors
+    use_key_in_widget_constructors: true
+
+    # Avoid bool literals in conditional expressions
+    avoid_bool_literals_in_conditional_expressions: true
+
+    # Avoid field initializers in const classes
+    avoid_field_initializers_in_const_classes: true
+
+    # Don't explicitly initialize variables to null
+    avoid_init_to_null: true
+
+    # Don't rename parameters of overridden methods
+    avoid_renaming_method_parameters: true
+
+    # Avoid returning null from members whose return type is bool, double, int, or num
+    avoid_returning_null: true
+
+    # Avoid returning null for void
+    avoid_returning_null_for_void: true
+
+    # Avoid setters without getters
+    avoid_setters_without_getters: true
+
+    # Avoid unnecessary containers
+    avoid_unnecessary_containers: true
+
+    # Name types using UpperCamelCase
+    camel_case_types: true
+
+    # Prefer using ??= over testing for null
+    prefer_conditional_assignment: true
+
+    # Prefer const with constant constructors
+    prefer_const_constructors: true
+
+    # Private field could be final
+    prefer_final_fields: true
+
+    # Prefer final for parameter declarations if they are not reassigned
+    prefer_final_parameters: true
+
+    # Use isEmpty for Iterables and Maps
+    prefer_is_empty: true
+
+    # Use isNotEmpty for Iterables and Maps
+    prefer_is_not_empty: true
+
+    # Avoid const keyword
+    unnecessary_const: true
+
+    # Unnecessary string interpolation
+    unnecessary_string_interpolations: true
+
+
+
+
+
+
+

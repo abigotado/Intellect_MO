@@ -24,6 +24,8 @@ class ContactsController extends GetxController with StateMixin<Contacts> {
         schoolEmail: data['schoolEmail'],
         schoolLogo: data['schoolLogo'],
         website: data['website'],
+        websiteShort: data['websiteShort'],
+        emailShort: data['emailShort'],
       );
       return _contacts;
     }

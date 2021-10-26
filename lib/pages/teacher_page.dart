@@ -57,7 +57,8 @@ class TeacherPage extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14)),
                             for (var descriptionItem in value.description)
-                              ProductDescription(description: descriptionItem),
+                              ProductDescription(
+                                  description: '$descriptionItem'),
                             Container(
                               margin: EdgeInsets.only(top: 20),
                               child: Center(
