@@ -7,6 +7,14 @@ class Contacts {
   String website;
   String websiteShort;
   String emailShort;
+  String address;
+  String facebook;
+  String facebookShort;
+  String facebookUnlaunched;
+  String instagram;
+  String instagramShort;
+  double addressLat;
+  double addressLong;
 
   Contacts({
     this.managerName,
@@ -17,5 +25,13 @@ class Contacts {
     this.website,
     this.websiteShort,
     this.emailShort,
+    this.address,
+    this.facebook,
+    this.facebookShort,
+    this.instagram,
+    this.instagramShort,
+    this.addressLat,
+    this.addressLong,
+    this.facebookUnlaunched,
   });
 }

@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:intellect_mo/models/contacts.dart';
+import 'package:map_launcher/map_launcher.dart';
 
 class ContactsController extends GetxController with StateMixin<Contacts> {
   Contacts _contacts;
   Contacts get contacts => _contacts;
+  dynamic _availableMaps;
+  dynamic get availableMaps => _availableMaps;
 
   @override
   void onInit() {
@@ -26,6 +29,14 @@ class ContactsController extends GetxController with StateMixin<Contacts> {
         website: data['website'],
         websiteShort: data['websiteShort'],
         emailShort: data['emailShort'],
+        address: data['address'],
+        addressLat: double.parse(data['addressLat']),
+        addressLong: double.parse(data['addressLong']),
+        facebook: data['facebook'],
+        facebookShort: data['facebookShort'],
+        facebookUnlaunched: data['facebookUnlaunched'],
+        instagram: data['instagram'],
+        instagramShort: data['instagramShort'],
       );
       return _contacts;
     }
@@ -33,6 +44,9 @@ class ContactsController extends GetxController with StateMixin<Contacts> {
 
   load() async {
     await getContacts();
+    update();
+    _availableMaps = await MapLauncher.installedMaps;
+    print(_availableMaps);
     update();
   }
 }
