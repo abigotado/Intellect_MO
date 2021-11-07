@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intellect_mo/models/type.dart';
 import 'package:intellect_mo/widgets/banner/banner.dart';
-import 'package:intellect_mo/widgets/product_description/product_description_list.dart';
+import 'package:intellect_mo/widgets/product_description/product_description.dart';
 
 final String arrowLeft = 'assets/icons/arrowleft.svg';
 final String watches = 'assets/icons/timeicon.svg';
@@ -58,7 +58,7 @@ class TeacherPage extends StatelessWidget {
                                       fontSize: 14)),
                             for (var descriptionItem in value.description)
                               ProductDescription(
-                                  description: '$descriptionItem'),
+                                  description: Text(descriptionItem)),
                             Container(
                               margin: EdgeInsets.only(top: 20),
                               child: Center(

@@ -1,35 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FirstLessonInfo extends StatelessWidget {
+  const FirstLessonInfo({Key key, this.text, this.icon}) : super(key: key);
+
   final String text;
   final Widget icon;
-
-  const FirstLessonInfo({Key key, this.text, this.icon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: Color.fromRGBO(81, 140, 255, 1)),
+            borderRadius: BorderRadius.circular(10.r),
+            color: const Color.fromRGBO(81, 140, 255, 1)),
         height: 60,
         child: Row(
           children: [
             Container(
-                margin: EdgeInsets.only(left: 15, right: 15),
+                margin: EdgeInsets.symmetric(horizontal: 15.w),
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromRGBO(248, 250, 255, 1)),
-                    borderRadius: BorderRadius.circular(20)),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
                 child: Center(child: icon)),
             Text(text,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
-                    color: Color.fromRGBO(255, 255, 255, 1))),
+                    color: Colors.white)),
           ],
         ));
   }

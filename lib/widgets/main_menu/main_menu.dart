@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intellect_mo/widgets/main_menu/types.dart';
 
@@ -13,12 +14,18 @@ class MainMenu extends StatefulWidget {
 }
 
 class _MainMenuState extends State<MainMenu> {
-
   @override
   Widget build(BuildContext context) {
-
     return TabBar(
-      tabs: widget.tabs.map((tab) => Tab(text: tab.title, icon: SvgPicture.asset(tab.icon, color: widget.tabs.indexOf(tab) == widget.tabController.index ? Colors.white : Color.fromRGBO(0, 17, 51, 0.6)))).toList(),
+      tabs: widget.tabs
+          .map((tab) => Tab(
+              height: 70.h,
+              text: tab.title,
+              icon: SvgPicture.asset(tab.icon,
+                  color: widget.tabs.indexOf(tab) == widget.tabController.index
+                      ? Colors.white
+                      : Color.fromRGBO(0, 17, 51, 0.6))))
+          .toList(),
       controller: widget.tabController,
       labelColor: Colors.white,
       unselectedLabelColor: Color.fromRGBO(0, 17, 51, 0.6),
@@ -28,6 +35,3 @@ class _MainMenuState extends State<MainMenu> {
     );
   }
 }
-
-
-

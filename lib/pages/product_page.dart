@@ -7,7 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intellect_mo/models/type.dart';
 import 'package:intellect_mo/pages/requests_page.dart';
 import 'package:intellect_mo/widgets/banner/banner.dart';
-import 'package:intellect_mo/widgets/product_description/product_description_list.dart';
+import 'package:intellect_mo/widgets/product_description/product_description.dart';
 
 final String arrowLeft = 'assets/icons/arrowleft.svg';
 final String watches = 'assets/icons/timeicon.svg';
@@ -40,15 +40,32 @@ class ProductPage extends StatelessWidget {
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
-              children: [
+              children: <Widget>[
                 if (value.image != null)
                   Container(
                     margin: EdgeInsets.only(
                         left: 25.w, top: 5.h, right: 25.w, bottom: 20.h),
-                    clipBehavior: Clip.hardEdge,
+                    clipBehavior: Clip.antiAlias,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.r)),
-                    child: Image.network(value.image),
+                    child: Image.network(
+                      value.image,
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes
+                                  : null,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 if (value.description != null)
                   Container(
@@ -63,7 +80,9 @@ class ProductPage extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14.sp)),
                           for (var descriptionItem in value.description)
-                            ProductDescription(description: descriptionItem),
+                            ProductDescription(
+                                description: Text(descriptionItem,
+                                    style: TextStyle(fontSize: 12.sp))),
                           Container(
                             margin: EdgeInsets.only(top: 20.h),
                             child: Center(
@@ -76,19 +95,30 @@ class ProductPage extends StatelessWidget {
                           ),
                         ],
                       )),
-                Container(
-                    margin: EdgeInsets.only(
-                        left: 20.w, top: 10.h, right: 25.w, bottom: 10.h),
-                    padding: EdgeInsets.all(20.r),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.r),
-                      border: Border.all(
-                          width: 1.w,
-                          color: const Color.fromRGBO(0, 17, 51, 0.03)),
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
+                Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                    child: OutlinedButton(
+                      style: ButtonStyle(
+                        textStyle: MaterialStateProperty.all(TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                        )),
+                        foregroundColor: MaterialStateProperty.all(
+                            const Color.fromRGBO(81, 140, 255, 0.8)),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        shape: MaterialStateProperty.all<OutlinedBorder>(
+                            RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                        )),
+                        side: MaterialStateProperty.all<BorderSide>(BorderSide(
+                            width: 1.w,
+                            color: const Color.fromRGBO(81, 140, 255, 0.1))),
+                        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                            EdgeInsets.all(20.r)),
+                      ),
+                      onPressed: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute<ProductPage>(
@@ -96,10 +126,9 @@ class ProductPage extends StatelessWidget {
                                     icon: svgArrowLeft(color: Colors.white))));
                       },
                       child: Center(
-                          child: Text('Записаться'.toUpperCase(),
-                              style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold))),
+                          child: Text(
+                        'Записаться'.toUpperCase(),
+                      )),
                     )),
                 GestureDetector(
                   onTap: () {
@@ -109,9 +138,9 @@ class ProductPage extends StatelessWidget {
                             builder: (BuildContext context) => RequestsPage(
                                 icon: svgArrowLeft(color: Colors.white))));
                   },
-                  child: Container(
-                      margin: EdgeInsets.only(
-                          left: 40.w, top: 10.h, right: 40.w, bottom: 20.h),
+                  child: Padding(
+                      padding: EdgeInsets.only(
+                          left: 20.w, top: 10.h, right: 20.w, bottom: 20.h),
                       child: FirstLessonInfo(
                           icon: svgWatches, text: 'Первое занятие бесплатно!')),
                 ),

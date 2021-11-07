@@ -543,7 +543,7 @@ class ContactsPage extends StatelessWidget {
                         ],
                       ),
                     )
-                  : Center(child: CircularProgressIndicator()),
+                  : const Center(child: CircularProgressIndicator()),
             ),
             appBar: AppBar(
               title: Text(

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:intellect_mo/models/contacts.dart';
 import 'package:map_launcher/map_launcher.dart';
 
-class ContactsController extends GetxController with StateMixin<Contacts> {
+class ContactsController extends GetxController {
   Contacts _contacts;
   Contacts get contacts => _contacts;
   dynamic _availableMaps;
