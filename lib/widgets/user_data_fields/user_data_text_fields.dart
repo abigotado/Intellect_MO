@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:intellect_mo/widgets/validators/name_validator.dart';
 import 'package:intellect_mo/widgets/validators/phone_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +22,10 @@ class _UserDataFieldsState extends State<UserDataFields> {
   var email = '';
 
   final _formKey = GlobalKey<FormState>();
+  final _nameKey = UniqueKey();
+  final _surnameKey = UniqueKey();
+  final _phoneKey = UniqueKey();
+  final _emailKey = UniqueKey();
 
   final firestoreInstance = FirebaseFirestore.instance;
   Future<SharedPreferences> sharedPrefs = SharedPreferences.getInstance();
@@ -26,10 +33,10 @@ class _UserDataFieldsState extends State<UserDataFields> {
   void sendContactInfo() async {
     final SharedPreferences prefs = await sharedPrefs;
     firestoreInstance.collection('usercontacts').add({
-      "firstName": name,
-      "lastName": surname,
-      "email": email,
-      "phoneNumber": phone
+      'firstName': name,
+      'lastName': surname,
+      'email': email,
+      'phoneNumber': phone
     }).then((value) {
       print(value.id);
       prefs.setString('firstName', name);
@@ -37,6 +44,20 @@ class _UserDataFieldsState extends State<UserDataFields> {
       prefs.setString('email', email);
       prefs.setString('phoneNumber', phone);
     });
+
+    final response = await http.post(
+      Uri.parse('https://intellect-mo-web-app.vercel.app/api/sendMail'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'firstName': name,
+        'lastName': surname,
+        'email': email,
+        'phoneNumber': phone
+      }),
+    );
+    print(response.headers);
   }
 
   Future<void> getDataFromSharedPrefs() async {
@@ -103,10 +124,10 @@ class _UserDataFieldsState extends State<UserDataFields> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 10),
                                 child: TextFormField(
-                                  key: UniqueKey(),
-                                  initialValue: name,
+                                  key: _nameKey,
                                   autovalidateMode:
                                       AutovalidateMode.onUserInteraction,
+                                  initialValue: name,
                                   validator: nameValidator,
                                   textCapitalization: TextCapitalization.words,
                                   decoration: InputDecoration(
@@ -139,10 +160,10 @@ class _UserDataFieldsState extends State<UserDataFields> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 10),
                                 child: TextFormField(
-                                  key: UniqueKey(),
-                                  initialValue: surname,
+                                  key: _surnameKey,
                                   autovalidateMode:
                                       AutovalidateMode.onUserInteraction,
+                                  initialValue: surname,
                                   validator: nameValidator,
                                   textCapitalization: TextCapitalization.words,
                                   decoration: InputDecoration(
@@ -175,11 +196,11 @@ class _UserDataFieldsState extends State<UserDataFields> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 10),
                                 child: TextFormField(
-                                  key: UniqueKey(),
-                                  initialValue: phone,
-                                  keyboardType: TextInputType.phone,
+                                  key: _phoneKey,
                                   autovalidateMode:
                                       AutovalidateMode.onUserInteraction,
+                                  initialValue: phone,
+                                  keyboardType: TextInputType.phone,
                                   validator: phoneValidator,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -210,12 +231,12 @@ class _UserDataFieldsState extends State<UserDataFields> {
                               ),
                               Container(
                                 child: TextFormField(
-                                  key: UniqueKey(),
+                                  key: _emailKey,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
                                   initialValue: email,
                                   keyboardType: TextInputType.emailAddress,
                                   textCapitalization: TextCapitalization.none,
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
                                   validator: (value) =>
                                       EmailValidator.validate(value)
                                           ? null
