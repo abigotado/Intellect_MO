@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:intellect_mo/widgets/banner/banner.dart';
-import 'package:intellect_mo/widgets/price_item/price_item.dart';
-import 'package:intellect_mo/widgets/price_item/type.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:intellect_mo/models/type.dart';
+import 'package:intellect_mo/widgets/price_item/price_item.dart';
 
 final String mentalArithmeticIcon = 'assets/icons/pendilum.svg';
 final String brainIntellect = 'assets/icons/square-academic-cap.svg';
@@ -54,21 +52,21 @@ class _ProductsPageState extends State<ProductsPage> {
             color: Color(0xFFF8FAFF),
             padding: EdgeInsets.only(bottom: 100),
             child: StreamBuilder<QuerySnapshot>(
-                        stream: db.collection('products').snapshots(),
-                        builder: (context, snapshot) {
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          } else
-                            return ListView.builder(
-                                itemCount: products.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return PriceItem(value: products[index]);
-                                });
-                        }),
-            ),
+                stream: db.collection('products').snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else
+                    return ListView.builder(
+                        itemCount: products.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return PriceItem(value: products[index]);
+                        });
+                }),
           ),
+        ),
         appBar: AppBar(
           title: Text(
             "Наши занятия".toUpperCase(),

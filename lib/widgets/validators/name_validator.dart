@@ -1,4 +1,4 @@
-String nameValidator(value) {
+String nameValidator(String value) {
   RegExp regExp = RegExp(r'^(?!\s*$)[-а-яА-Я\s]{2,253}$');
   if (value.length == 0) {
     return 'Введите текст';

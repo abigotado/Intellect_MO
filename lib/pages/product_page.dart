@@ -2,19 +2,25 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intellect_mo/models/type.dart';
 import 'package:intellect_mo/pages/requests_page.dart';
 import 'package:intellect_mo/widgets/banner/banner.dart';
-import 'package:intellect_mo/widgets/price_item/type.dart';
-import 'package:intellect_mo/widgets/product_description/product_description_list.dart';
+import 'package:intellect_mo/widgets/product_description/product_description.dart';
 
 final String arrowLeft = 'assets/icons/arrowleft.svg';
 final String watches = 'assets/icons/timeicon.svg';
-final Widget svgArrowLeft = SvgPicture.asset(
-  arrowLeft,
-  width: 10,
-  height: 20,
-);
+
+Widget svgArrowLeft({Color color}) {
+  return SvgPicture.asset(
+    arrowLeft,
+    width: 10,
+    height: 20,
+    color: color,
+  );
+}
+
 final Widget svgWatches = SvgPicture.asset(
   watches,
   width: 26,
@@ -22,91 +28,129 @@ final Widget svgWatches = SvgPicture.asset(
 );
 
 class ProductPage extends StatelessWidget {
-  final PriceItemType value;
-
   const ProductPage({Key key, this.value}) : super(key: key);
 
+  final PriceItemType value;
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return MaterialApp(
       theme: ThemeData(fontFamily: 'Roboto'),
       home: Scaffold(
         body: SafeArea(
-          child: Container(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  if (value.image != null)
-                    Container(
-                      margin: EdgeInsets.only(
-                          left: 25, top: 5, right: 25, bottom: 20),
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Image.network(value.image),
-                    ),
-                  if (value.description != null)
-                    Container(
-                        margin: EdgeInsets.only(
-                            left: 25, top: 25, right: 25, bottom: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if (value.descriptionTitle != null)
-                              Text(value.descriptionTitle,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14)),
-                            for (var descriptionItem in value.description)
-                              ProductDescription(description: descriptionItem),
-                            Container(
-                              margin: EdgeInsets.only(top: 20),
-                              child: Center(
-                                child: Text(
-                                    "Стоимость занятия: ${value.price} руб./час",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold)),
-                              ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                if (value.image != null)
+                  Container(
+                    margin: EdgeInsets.only(
+                        left: 25.w, top: 5.h, right: 25.w, bottom: 20.h),
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.r)),
+                    child: Image.network(
+                      value.image,
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes
+                                  : null,
                             ),
-                          ],
-                        )),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                if (value.description != null)
                   Container(
                       margin: EdgeInsets.only(
-                          left: 20, top: 10, right: 25, bottom: 10),
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            width: 1, color: Color.fromRGBO(0, 17, 51, 0.03)),
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute<ProductPage>(
-                                  builder: (context) => RequestsPage()));
-                        },
-                        child: Center(
-                            child: Text("Записаться".toUpperCase(),
+                          left: 25.w, top: 25.h, right: 25.w, bottom: 20.h),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (value.descriptionTitle != null)
+                            Text(value.descriptionTitle,
                                 style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold))),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14.sp)),
+                          for (var descriptionItem in value.description)
+                            ProductDescription(
+                                description: Text(descriptionItem,
+                                    style: TextStyle(fontSize: 12.sp))),
+                          Container(
+                            margin: EdgeInsets.only(top: 20.h),
+                            child: Center(
+                              child: Text(
+                                  'Стоимость занятия: ${value.price} руб./час',
+                                  style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                          ),
+                        ],
                       )),
-                  Container(
-                      margin: EdgeInsets.only(
-                          left: 40, top: 10, right: 40, bottom: 20),
+                Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                    child: OutlinedButton(
+                      style: ButtonStyle(
+                        textStyle: MaterialStateProperty.all(TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                        )),
+                        foregroundColor: MaterialStateProperty.all(
+                            const Color.fromRGBO(81, 140, 255, 0.8)),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        shape: MaterialStateProperty.all<OutlinedBorder>(
+                            RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                        )),
+                        side: MaterialStateProperty.all<BorderSide>(BorderSide(
+                            width: 1.w,
+                            color: const Color.fromRGBO(81, 140, 255, 0.1))),
+                        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                            EdgeInsets.all(20.r)),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute<ProductPage>(
+                                builder: (BuildContext context) => RequestsPage(
+                                    icon: svgArrowLeft(color: Colors.white))));
+                      },
+                      child: Center(
+                          child: Text(
+                        'Записаться'.toUpperCase(),
+                      )),
+                    )),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute<ProductPage>(
+                            builder: (BuildContext context) => RequestsPage(
+                                icon: svgArrowLeft(color: Colors.white))));
+                  },
+                  child: Padding(
+                      padding: EdgeInsets.only(
+                          left: 20.w, top: 10.h, right: 20.w, bottom: 20.h),
                       child: FirstLessonInfo(
-                          icon: svgWatches, text: "Первое занятие бесплатно!")),
-                ],
-              ),
+                          icon: svgWatches, text: 'Первое занятие бесплатно!')),
+                ),
+              ],
             ),
           ),
         ),
         appBar: AppBar(
           title: Container(
-            padding: EdgeInsets.only(right: 56),
+            padding: EdgeInsets.only(right: 56.w),
             child: Center(
               child: RichText(
                 textAlign: TextAlign.center,
@@ -114,18 +158,18 @@ class ProductPage extends StatelessWidget {
                   text: value.name.toUpperCase(),
                   style: TextStyle(
                       color: Colors.black,
-                      fontSize: 20,
+                      fontSize: 20.sp,
                       fontWeight: FontWeight.w500),
                 ),
                 maxLines: 2,
               ),
             ),
           ),
-          backgroundColor: Color(0xFFF8FAFF),
+          backgroundColor: const Color(0xFFF8FAFF),
           centerTitle: true,
-          leading: GestureDetector(
-            child: Container(child: Center(child: svgArrowLeft)),
-            onTap: () {
+          leading: IconButton(
+            icon: svgArrowLeft(),
+            onPressed: () {
               Navigator.pop(context);
             },
           ),
