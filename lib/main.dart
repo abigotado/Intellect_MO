@@ -12,17 +12,16 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({final Key key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-
 class _MyAppState extends State<MyApp> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: () => GetMaterialApp(
@@ -30,7 +29,7 @@ class _MyAppState extends State<MyApp> {
           fontFamily: 'Roboto',
           scaffoldBackgroundColor: const Color(0xFFF8FAFF),
         ),
-        home: SplashScreen(),
+        home: const SplashScreen(),
       ),
     );
   }

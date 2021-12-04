@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intellect_mo/widgets/user_data_fields/user_data_text_fields.dart';
 
 class RequestsPage extends StatefulWidget {
-  RequestsPage({Key key, this.icon}) : super(key: key);
+  // ignore: prefer_final_parameters
+  RequestsPage({final Key key, this.icon}) : super(key: key);
 
   final Widget icon;
 
@@ -13,7 +13,7 @@ class RequestsPage extends StatefulWidget {
 
 class _RequestsPageState extends State<RequestsPage> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(81, 140, 255, 1),
       resizeToAvoidBottomInset: true,
@@ -24,7 +24,7 @@ class _RequestsPageState extends State<RequestsPage> {
         leading: widget.icon != null
             ? IconButton(
                 onPressed: () {
-                  Get.back();
+                  Navigator.of(context).pop();
                 },
                 icon: widget.icon,
               )

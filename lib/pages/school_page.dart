@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intellect_mo/controllers/school_page_controller.dart';
 import 'package:intellect_mo/models/type.dart';
+import 'package:intellect_mo/pages/photo_page.dart';
 import 'package:intellect_mo/pages/teacher_page.dart';
 import 'package:intellect_mo/widgets/product_description/product_description.dart';
 
@@ -25,17 +26,18 @@ final Widget svgWatches = SvgPicture.asset(
 );
 
 class SchoolPage extends StatelessWidget {
+  // ignore: prefer_final_parameters
+  const SchoolPage({final Key key, this.value}) : super(key: key);
+
   final PriceItemType value;
 
-  const SchoolPage({Key key, this.value}) : super(key: key);
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return GetBuilder<SchoolPageController>(
         init: SchoolPageController(),
-        builder: (SchoolPageController value) {
+        builder: (final SchoolPageController value) {
           return value.school != null &&
-                  value.contactsController.contacts != null
+                  value.teacherPageController.teacher != null
               ? Scaffold(
                   body: SafeArea(
                     child: Theme(
@@ -44,8 +46,14 @@ class SchoolPage extends StatelessWidget {
                       child: SingleChildScrollView(
                         child: Column(
                           children: <Widget>[
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width,
+                            AppBar(
+                              title: Text(
+                                'Наш центр'.toUpperCase(),
+                                style: const TextStyle(color: Colors.black),
+                              ),
+                              backgroundColor: const Color(0xFFF8FAFF),
+                              centerTitle: true,
+                              elevation: 0,
                             ),
                             Container(
                               margin: EdgeInsets.only(
@@ -58,10 +66,10 @@ class SchoolPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10.r)),
                               child: CachedNetworkImage(
                                 imageUrl: value.school.classPhoto,
-                                placeholder:
-                                    (BuildContext context, String url) =>
-                                        const Center(
-                                            child: CircularProgressIndicator()),
+                                placeholder: (final BuildContext context,
+                                        final String url) =>
+                                    const Center(
+                                        child: CircularProgressIndicator()),
                               ),
                             ),
                             Padding(
@@ -90,8 +98,7 @@ class SchoolPage extends StatelessWidget {
                                   )),
                             ),
                             Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 25.w, vertical: 15.h),
+                              margin: EdgeInsets.symmetric(horizontal: 25.w),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(16),
@@ -106,6 +113,7 @@ class SchoolPage extends StatelessWidget {
                                     style: TextStyle(
                                         fontSize: 16.sp, color: Colors.black)),
                                 children: <Widget>[
+                                  // ignore: always_specify_types
                                   for (var weDevelopItem
                                       in value.school?.weDevelop)
                                     ProductDescription(
@@ -134,7 +142,10 @@ class SchoolPage extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 25.w),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 25.w,
+                                vertical: 10.h,
+                              ),
                               child: Text(
                                   value.school?.aboutSchool
                                       ?.split('/')
@@ -143,29 +154,120 @@ class SchoolPage extends StatelessWidget {
                                   style: TextStyle(
                                       fontSize: 14.sp, color: Colors.black)),
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                Get.to(() => const TeacherPage());
-                              },
-                              child: Container(
-                                  margin: EdgeInsets.only(
-                                      left: 25.w, right: 25.w, bottom: 15.h),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  child: Text('Наш учитель')),
-                            ),
+                            Container(
+                                margin: EdgeInsets.symmetric(
+                                  horizontal: 25.w,
+                                  vertical: 15.h,
+                                ),
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(24),
+                                ),
+                                clipBehavior: Clip.antiAlias,
+                                child: Stack(
+                                  children: <Widget>[
+                                    CachedNetworkImage(
+                                      imageUrl: value.teacherPageController
+                                          .teacher.photoSmall,
+                                      height: 173.h,
+                                      placeholder: (final BuildContext context,
+                                              final String url) =>
+                                          const Center(
+                                              child:
+                                                  CircularProgressIndicator()),
+                                    ),
+                                    Positioned(
+                                      top: 25.h,
+                                      left: 135.w,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text('Наш учитель'.toUpperCase(),
+                                              style: TextStyle(
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.w500,
+                                                color: const Color(0xFFFB9A54),
+                                              )),
+                                          SizedBox(height: 8.h),
+                                          Text(
+                                            value.teacherPageController.teacher
+                                                    .name +
+                                                ' ' +
+                                                value.teacherPageController
+                                                    .teacher.surname,
+                                            style: TextStyle(
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          SizedBox(height: 8.h),
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              maxWidth: 200.w,
+                                            ),
+                                            child: Text(
+                                              value.teacherPageController
+                                                  .teacher.title,
+                                              style: TextStyle(
+                                                fontSize: 14.sp,
+                                                color: const Color(0xFF001133)
+                                                    .withOpacity(0.5),
+                                              ),
+                                              maxLines: 3,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Positioned(
+                                      right: 20.r,
+                                      bottom: 20.r,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute<TeacherPage>(
+                                              builder: (final BuildContext
+                                                      context) =>
+                                                  const TeacherPage(),
+                                            ),
+                                          );
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          elevation: 0,
+                                          primary: const Color(0xFF518CFF),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                        ),
+                                        child: Text('Подробнее',
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              color: Colors.white,
+                                            )),
+                                      ),
+                                    ),
+                                  ],
+                                )),
                             Padding(
                               padding: EdgeInsets.only(
-                                  left: 25.w, top: 15.h, right: 25.w),
+                                left: 25.w,
+                                top: 10.h,
+                                right: 25.w,
+                                bottom: 15.h,
+                              ),
                               child: Text(
                                   value.school?.aboutSchool
                                       ?.split('/')
                                       ?.elementAt(3),
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(
-                                      fontSize: 14.sp, color: Colors.black)),
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black,
+                                  )),
                             ),
                             Container(
                               margin: EdgeInsets.only(
@@ -184,6 +286,7 @@ class SchoolPage extends StatelessWidget {
                                     style: TextStyle(
                                         fontSize: 16.sp, color: Colors.black)),
                                 children: <Widget>[
+                                  // ignore: always_specify_types
                                   for (var advantage
                                       in value.school?.advantages)
                                     ProductDescription(
@@ -218,22 +321,45 @@ class SchoolPage extends StatelessWidget {
                                     height: 190.h,
                                     child: ListView.separated(
                                         scrollDirection: Axis.horizontal,
+                                        // ignore: always_specify_types, prefer_final_parameters
                                         itemBuilder: (_, i) {
                                           return Container(
                                             height: 185.h,
                                             width: 145.w,
-                                            child: CachedNetworkImage(
-                                              imageUrl:
-                                                  value.school?.licenses[i],
-                                              placeholder: (BuildContext
-                                                          context,
-                                                      String url) =>
-                                                  const Center(
-                                                      child:
-                                                          CircularProgressIndicator()),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  // ignore: always_specify_types
+                                                  PageRouteBuilder(
+                                                    opaque: false,
+                                                    barrierColor: Colors.black
+                                                        .withOpacity(0.5),
+                                                    pageBuilder:
+                                                        (final BuildContext
+                                                                context,
+                                                            final _,
+                                                            final __) {
+                                                      return PhotoPage(value
+                                                          .school?.licenses[i]);
+                                                    },
+                                                  ),
+                                                );
+                                              },
+                                              child: CachedNetworkImage(
+                                                imageUrl:
+                                                    value.school?.licenses[i],
+                                                placeholder: (final BuildContext
+                                                            context,
+                                                        final String url) =>
+                                                    const Center(
+                                                        child:
+                                                            CircularProgressIndicator()),
+                                              ),
                                             ),
                                           );
                                         },
+                                        // ignore: always_specify_types, prefer_final_parameters
                                         separatorBuilder: (_, j) => SizedBox(
                                               width: 10.w,
                                             ),
@@ -250,15 +376,6 @@ class SchoolPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ),
-                  appBar: AppBar(
-                    title: Text(
-                      "Наш центр".toUpperCase(),
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    backgroundColor: Color(0xFFF8FAFF),
-                    centerTitle: true,
-                    elevation: 0,
                   ),
                 )
               : const Center(child: CircularProgressIndicator());

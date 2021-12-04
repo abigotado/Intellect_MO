@@ -317,8 +317,15 @@ class ContactsPage extends StatelessWidget {
                                                   recognizer:
                                                       TapGestureRecognizer()
                                                         ..onTap = () {
-                                                          Get.to(() =>
-                                                              const TeacherPage());
+                                                          Navigator.of(context)
+                                                              .push(
+                                                            MaterialPageRoute<
+                                                                TeacherPage>(
+                                                              builder: (final BuildContext
+                                                                      context) =>
+                                                                  const TeacherPage(),
+                                                            ),
+                                                          );
                                                         },
                                                 ),
                                                 TextSpan(

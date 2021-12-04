@@ -68,5 +68,10 @@
         <string>qqmap</string>
         <string>here-location</string>
     </array>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+      <key>NSAllowsArbitraryLoads</key>
+      <true/>
+    </dict>
 </dict>
 </plist>

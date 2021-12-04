@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:intellect_mo/controllers/teacher_page_controller.dart';
 import 'package:intellect_mo/models/school.dart';
 
-import 'contacts_conroller.dart';
-
 class SchoolPageController extends GetxController {
-  ContactsController _contactsController;
-  ContactsController get contactsController => _contactsController;
+  TeacherPageController _teacherPageController;
+  TeacherPageController get teacherPageController => _teacherPageController;
 
   School _school;
   School get school => _school;
@@ -18,12 +17,15 @@ class SchoolPageController extends GetxController {
   }
 
   getSchoolInfo() async {
-    final collection = FirebaseFirestore.instance.collection('school');
-    final document = await collection.doc('jv8KQF1UNxUtalvG4huO').get();
+    final CollectionReference<Map<String, dynamic>> collection =
+        FirebaseFirestore.instance.collection('school');
+    final DocumentSnapshot<Map<String, dynamic>> document =
+        await collection.doc('jv8KQF1UNxUtalvG4huO').get();
     if (document.exists) {
       Map<String, dynamic> data = document.data();
       _school = School(
         classPhoto: data['classPhoto'],
+        schoolPhoto: data['school_photo'],
         aboutSchool: data['aboutUs'],
         weDevelop: data['weDevelop'],
         advantages: data['advantages'],
@@ -34,8 +36,8 @@ class SchoolPageController extends GetxController {
   }
 
   load() async {
-    _contactsController = Get.put(ContactsController());
-    await _contactsController.getContacts();
+    _teacherPageController = Get.put(TeacherPageController());
+    await _teacherPageController.getTeacherInfo();
     update();
     await getSchoolInfo();
     update();

@@ -16,8 +16,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   final List<TabItem> mainMenu = [
     TabItem("Центр", 'assets/icons/Home.svg'),
     TabItem("Занятия", 'assets/icons/lessons.svg'),
-    TabItem("Контакты", 'assets/icons/contacts.svg'),
     TabItem("Заявки", 'assets/icons/User_add_alt_fill.svg'),
+    TabItem("Контакты", 'assets/icons/contacts.svg'),
   ];
 
   Color primaryColor;
@@ -58,8 +58,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           children: [
             SchoolPage(),
             ProductsPage(),
-            ContactsPage(),
             RequestsPage(),
+            ContactsPage(),
           ],
         ),
         Container(

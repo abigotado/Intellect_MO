@@ -1,21 +1,6 @@
-class Contacts {
-  String managerName;
-  String managerPhone;
-  String teacherPhone;
-  String schoolEmail;
-  String schoolLogo;
-  String website;
-  String websiteShort;
-  String emailShort;
-  String address;
-  String facebook;
-  String facebookShort;
-  String facebookUnlaunched;
-  String instagram;
-  String instagramShort;
-  double addressLat;
-  double addressLong;
+// ignore_for_file: prefer_final_parameters
 
+class Contacts {
   Contacts({
     this.managerName,
     this.managerPhone,
@@ -34,4 +19,21 @@ class Contacts {
     this.addressLong,
     this.facebookUnlaunched,
   });
+
+  final String managerName;
+  final String managerPhone;
+  final String teacherPhone;
+  final String schoolEmail;
+  final String schoolLogo;
+  final String website;
+  final String websiteShort;
+  final String emailShort;
+  final String address;
+  final String facebook;
+  final String facebookShort;
+  final String facebookUnlaunched;
+  final String instagram;
+  final String instagramShort;
+  final double addressLat;
+  final double addressLong;
 }

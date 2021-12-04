@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 
-class PriceItemType {
-  String name;
-  int price;
-  String image;
-  List<dynamic> description;
-  String descriptionTitle;
-  String icon;
+// ignore_for_file: prefer_final_parameters
 
+class PriceItemType {
   PriceItemType({
     @required this.name,
     @required this.price,
@@ -16,4 +11,11 @@ class PriceItemType {
     this.descriptionTitle,
     this.icon,
   });
+
+  final String name;
+  final int price;
+  final String image;
+  final List<dynamic> description;
+  final String descriptionTitle;
+  final String icon;
 }
