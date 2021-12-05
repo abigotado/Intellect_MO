@@ -13,7 +13,8 @@ final String arrowLeft = 'assets/icons/arrowleft.svg';
 final String watches = 'assets/icons/timeicon.svg';
 
 class ProductPage extends StatelessWidget {
-  const ProductPage({Key key, this.value}) : super(key: key);
+  // ignore: prefer_final_parameters
+  const ProductPage({final Key key, this.value}) : super(key: key);
 
   final PriceItemType value;
 
@@ -33,8 +34,9 @@ class ProductPage extends StatelessWidget {
                       BoxDecoration(borderRadius: BorderRadius.circular(10.r)),
                   child: Image.network(
                     value.image,
-                    loadingBuilder: (BuildContext context, Widget child,
-                        ImageChunkEvent loadingProgress) {
+                    loadingBuilder: (final BuildContext context,
+                        final Widget child,
+                        final ImageChunkEvent loadingProgress) {
                       if (loadingProgress == null) return child;
                       return Padding(
                         padding: const EdgeInsets.all(5.0),
@@ -56,12 +58,13 @@ class ProductPage extends StatelessWidget {
                         left: 25.w, top: 25.h, right: 25.w, bottom: 20.h),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         if (value.descriptionTitle != null)
                           Text(value.descriptionTitle,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14.sp)),
+                        // ignore: always_specify_types
                         for (var descriptionItem in value.description)
                           ProductDescription(
                               description: Text(descriptionItem,
@@ -79,41 +82,39 @@ class ProductPage extends StatelessWidget {
                       ],
                     )),
               Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                  child: OutlinedButton(
-                    style: ButtonStyle(
-                      textStyle: MaterialStateProperty.all(TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
-                      )),
-                      foregroundColor: MaterialStateProperty.all(
-                          const Color.fromRGBO(81, 140, 255, 0.8)),
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                      shape: MaterialStateProperty.all<OutlinedBorder>(
-                          RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.r),
-                      )),
-                      side: MaterialStateProperty.all<BorderSide>(BorderSide(
-                          width: 1.w,
-                          color: const Color.fromRGBO(81, 140, 255, 0.1))),
-                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                          EdgeInsets.all(20.r)),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    textStyle: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute<ProductPage>(
-                              builder: (BuildContext context) => RequestsPage(
-                                  icon: AppIcons.arrowLeft(
-                                      color: Colors.white))));
-                    },
-                    child: Center(
-                        child: Text(
-                      'Записаться'.toUpperCase(),
-                    )),
+                    onPrimary: const Color.fromRGBO(81, 140, 255, 0.8),
+                    primary: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                    side: BorderSide(
+                        width: 1.w,
+                        color: const Color.fromRGBO(81, 140, 255, 0.1)),
+                    padding: EdgeInsets.all(20.r),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute<RequestsPage>(
+                            builder: (final BuildContext context) =>
+                                RequestsPage(
+                                    icon: AppIcons.arrowLeft(
+                                        color: Colors.white))));
+                  },
+                  child: Center(
+                      child: Text(
+                    'Записаться'.toUpperCase(),
                   )),
+                ),
+              ),
               GestureDetector(
                 onTap: () {
                   Navigator.push(

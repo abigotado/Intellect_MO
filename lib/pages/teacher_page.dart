@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intellect_mo/controllers/teacher_page_controller.dart';
+import 'package:intellect_mo/pages/requests_page.dart';
 import 'package:intellect_mo/utils/icons.dart';
 import 'package:intellect_mo/widgets/product_description/product_description.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -177,26 +178,62 @@ class TeacherPage extends StatelessWidget {
                                 Center(
                                   child: controller
                                           .videoController.value.isInitialized
-                                      ? AspectRatio(
-                                          aspectRatio: controller
-                                              .videoController
-                                              .value
-                                              .aspectRatio,
-                                          child: Stack(
-                                            alignment: Alignment.bottomCenter,
-                                            children: <Widget>[
-                                              VideoPlayer(
-                                                  controller.videoController),
-                                              _ControlsOverlay(
-                                                  controller: controller
-                                                      .videoController),
-                                              VideoProgressIndicator(
+                                      ? ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: AspectRatio(
+                                            aspectRatio: controller
+                                                .videoController
+                                                .value
+                                                .aspectRatio,
+                                            child: Stack(
+                                              alignment: Alignment.bottomCenter,
+                                              children: <Widget>[
+                                                VideoPlayer(
+                                                    controller.videoController),
+                                                _ControlsOverlay(
+                                                    controller: controller
+                                                        .videoController),
+                                                VideoProgressIndicator(
                                                   controller.videoController,
-                                                  allowScrubbing: true),
-                                            ],
+                                                  allowScrubbing: true,
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         )
                                       : const CircularProgressIndicator(),
+                                ),
+                                SizedBox(height: 16.h),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 0,
+                                    textStyle: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    onPrimary: Colors.white,
+                                    primary: const Color(0xFF518CFF),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.r),
+                                    ),
+                                    padding: EdgeInsets.all(20.r),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute<RequestsPage>(
+                                            builder: (final BuildContext
+                                                    context) =>
+                                                RequestsPage(
+                                                    icon: AppIcons.arrowLeft(
+                                                        color: Colors.white))));
+                                  },
+                                  child: const Center(
+                                      child: Text(
+                                    'Записаться на занятие',
+                                    textAlign: TextAlign.center,
+                                  )),
                                 ),
                               ],
                             ),
@@ -217,17 +254,6 @@ class _ControlsOverlay extends StatelessWidget {
   // ignore: prefer_final_parameters
   const _ControlsOverlay({@required this.controller, final Key key})
       : super(key: key);
-
-  static const List<double> _examplePlaybackRates = <double>[
-    0.25,
-    0.5,
-    1.0,
-    1.5,
-    2.0,
-    3.0,
-    5.0,
-    10.0,
-  ];
 
   final VideoPlayerController controller;
 
@@ -256,36 +282,6 @@ class _ControlsOverlay extends StatelessWidget {
           onTap: () {
             controller.value.isPlaying ? controller.pause() : controller.play();
           },
-        ),
-        Align(
-          alignment: Alignment.topRight,
-          child: PopupMenuButton<double>(
-            initialValue: controller.value.playbackSpeed,
-            tooltip: 'Playback speed',
-            onSelected: (final double speed) {
-              controller.setPlaybackSpeed(speed);
-            },
-            itemBuilder: (final BuildContext context) {
-              return <PopupMenuEntry<double>>[
-                for (final double speed in _examplePlaybackRates)
-                  // ignore: always_specify_types
-                  PopupMenuItem(
-                    value: speed,
-                    child: Text('${speed}x'),
-                  )
-              ];
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                // Using less vertical padding as the text is also longer
-                // horizontally, so it feels like it would need more spacing
-                // horizontally (matching the aspect ratio of the video).
-                vertical: 12,
-                horizontal: 16,
-              ),
-              child: Text('${controller.value.playbackSpeed}x'),
-            ),
-          ),
         ),
       ],
     );

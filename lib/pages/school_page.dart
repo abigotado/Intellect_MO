@@ -346,15 +346,42 @@ class SchoolPage extends StatelessWidget {
                                                   ),
                                                 );
                                               },
-                                              child: CachedNetworkImage(
-                                                imageUrl:
-                                                    value.school?.licenses[i],
-                                                placeholder: (final BuildContext
-                                                            context,
-                                                        final String url) =>
-                                                    const Center(
-                                                        child:
-                                                            CircularProgressIndicator()),
+                                              child: Container(
+                                                margin: EdgeInsets.all(10.r),
+                                                padding: EdgeInsets.only(
+                                                  left: 10.r,
+                                                  top: 10.r,
+                                                  right: 10.r,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFFE7F7FF),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: DecoratedBox(
+                                                  decoration: BoxDecoration(
+                                                    boxShadow: <BoxShadow>[
+                                                      BoxShadow(
+                                                        color: const Color(
+                                                                0xFF2A2435)
+                                                            .withOpacity(0.15),
+                                                        blurRadius: 0.5,
+                                                        offset:
+                                                            const Offset(1, -1),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: value
+                                                        .school?.licenses[i],
+                                                    placeholder: (final BuildContext
+                                                                context,
+                                                            final String url) =>
+                                                        const Center(
+                                                            child:
+                                                                CircularProgressIndicator()),
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           );

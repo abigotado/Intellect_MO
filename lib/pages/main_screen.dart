@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intellect_mo/pages/products_page.dart';
 import 'package:intellect_mo/pages/requests_page.dart';
 import 'package:intellect_mo/pages/school_page.dart';
@@ -39,32 +40,32 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     setState(() {
       switch (_tabController.index) {
         case 0:
-          primaryColor = Color(0xFFF8FAFF);
+          primaryColor = const Color(0xFFF8FAFF);
           break;
         case 1:
-          primaryColor = Color.fromRGBO(81, 140, 255, 1);
+          primaryColor = const Color.fromRGBO(81, 140, 255, 1);
           break;
         default:
       }
     });
   }
 
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(alignment: Alignment.bottomCenter, children: [
         TabBarView(
           controller: _tabController,
-          children: [
-            SchoolPage(),
+          children: <Widget>[
+            const SchoolPage(),
             ProductsPage(),
             RequestsPage(),
-            ContactsPage(),
+            const ContactsPage(),
           ],
         ),
         Container(
-          margin: EdgeInsets.all(10),
-          padding: EdgeInsets.all(5),
+          margin: EdgeInsets.all(10.r),
+          padding: EdgeInsets.all(5.r),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Colors.white,

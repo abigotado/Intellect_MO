@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intellect_mo/models/teacher.dart';
 import 'package:video_player/video_player.dart';
@@ -40,10 +41,16 @@ class TeacherPageController extends GetxController {
   }
 
   load() async {
-    await getTeacherInfo();
-    update();
-    _videoController = VideoPlayerController.asset(
-        'assets/videos/video_2021-12-04_17-44-00.mp4');
+    await getTeacherInfo().then((_) {
+      update();
+      debugPrint(_teacher.video);
+      _videoController = VideoPlayerController.network(_teacher.video);
+      _videoController.addListener(() {
+        update();
+      });
+      _videoController.setLooping(true);
+    });
+
     // ignore: prefer_final_parameters
     await _videoController.initialize().then((_) {
       update();
