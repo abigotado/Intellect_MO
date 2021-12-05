@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -53,17 +55,17 @@ class _UserDataFieldsState extends State<UserDataFields> {
     debugPrint('${tgResponse.headers}');
 
     final http.Response mailResponse = await http.post(
-      Uri.parse(
-          'https://intellect-mo-web-app.vercel.app/api/sendMail?firstName=${name}&lastName=${surname}&phoneNumber=${phone}&email=${email}'),
+      Uri.parse('https://intellect-mo-web-app.vercel.app/api/sendMail'),
+      // 'https://intellect-mo-web-app.vercel.app/api/sendMail?firstName=${name}&lastName=${surname}&phoneNumber=${phone}&email=${email}'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      // body: jsonEncode(<String, String>{
-      //   'firstName': name,
-      //   'lastName': surname,
-      //   'email': email,
-      //   'phoneNumber': phone
-      // }),
+      body: jsonEncode(<String, String>{
+        'firstName': name,
+        'lastName': surname,
+        'email': email,
+        'phoneNumber': phone
+      }),
     );
 
     debugPrint('${mailResponse.headers}');
