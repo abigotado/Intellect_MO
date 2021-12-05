@@ -61,15 +61,15 @@ class TeacherPage extends StatelessWidget {
                           borderRadius:
                               BorderRadius.vertical(top: Radius.circular(25)),
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            left: 25.w,
-                            top: 30.h,
-                            right: 25.w,
-                          ),
-                          child: SingleChildScrollView(
-                            physics: const ClampingScrollPhysics(),
-                            controller: scrollController,
+                        child: SingleChildScrollView(
+                          physics: const ClampingScrollPhysics(),
+                          controller: scrollController,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              left: 25.w,
+                              top: 30.h,
+                              right: 25.w,
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
