@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -45,19 +43,30 @@ class _UserDataFieldsState extends State<UserDataFields> {
       prefs.setString('phoneNumber', phone);
     });
 
-    final response = await http.post(
-      Uri.parse('https://intellect-mo-web-app.vercel.app/api/sendMail'),
+    final http.Response tgResponse = await http.post(
+      Uri.parse(
+          'https://api.telegram.org/bot1894468405:AAGlLpLM-4_qxXe3BIb-IAu1TMshdGGFkds/sendMessage?chat_id=-540191640&text=${name} ${surname}\n${phone}\n${email}'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, String>{
-        'firstName': name,
-        'lastName': surname,
-        'email': email,
-        'phoneNumber': phone
-      }),
     );
-    print(response.headers);
+    debugPrint('${tgResponse.headers}');
+
+    final http.Response mailResponse = await http.post(
+      Uri.parse(
+          'https://intellect-mo-web-app.vercel.app/api/sendMail?firstName=${name}&lastName=${surname}&phoneNumber=${phone}&email=${email}'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      // body: jsonEncode(<String, String>{
+      //   'firstName': name,
+      //   'lastName': surname,
+      //   'email': email,
+      //   'phoneNumber': phone
+      // }),
+    );
+
+    debugPrint('${mailResponse.headers}');
   }
 
   Future<void> getDataFromSharedPrefs() async {
